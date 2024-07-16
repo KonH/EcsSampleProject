@@ -8,7 +8,7 @@ add_subdirectory(ext/entt)
 set(BUILD_SHARED_LIBS FALSE)
 add_subdirectory(ext/SFML)
 
-add_executable(EcsSampleProject main.cpp)
+add_executable(EcsSampleProject src/main.cpp)
 
 target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics EnTT)
 
