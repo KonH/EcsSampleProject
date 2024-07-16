@@ -17,15 +17,19 @@ jobs:
         with:
           submodules: true
 
-      # Initialize the CodeQL tools for scanning.
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ libsfml-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libogg-dev libvorbis-dev libflac-dev
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: cpp
 
-      # Autobuild attempts to build any project with standard build steps.
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
+      - name: Configure CMake
+        run: cmake -S . -B build
+
+      - name: Build with CMake
+        run: cmake --build build --config Release
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
