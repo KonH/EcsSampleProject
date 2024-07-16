@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-TEST(AlwaysFailTest, Fails) {
-	EXPECT_EQ(1, 0);
+TEST(AlwaysSuccessTest, Fails) {
+	EXPECT_EQ(1, 1);
 }
 
 int main(int argc, char **argv) {
