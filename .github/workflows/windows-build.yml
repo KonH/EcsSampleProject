@@ -24,11 +24,11 @@ jobs:
       - name: Configure CMake
         run: cmake -S . -B build
 
+      - name: Build with CMake
+        run: cmake --build build --config Release
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: build/Release
-
-      - name: Build with CMake
-        run: cmake --build build --config Release
