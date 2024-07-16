@@ -18,7 +18,7 @@ jobs:
           submodules: true
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ libsfml-dev
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ libsfml-dev libxrandr-dev libxcursor-dev libxi-dev
 
       - name: Configure CMake
         run: cmake -S . -B build
