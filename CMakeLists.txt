@@ -15,10 +15,19 @@ add_subdirectory(ext/benchmark)
 
 include(GoogleTest)
 
+file(GLOB_RECURSE SRC_FILES
+        ${CMAKE_SOURCE_DIR}/src/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/Components/*.h
+        ${CMAKE_SOURCE_DIR}/src/Systems/*.cpp
+)
+
 # Main project executable
-add_executable(EcsSampleProject src/main.cpp)
+add_executable(EcsSampleProject ${SRC_FILES})
 target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics EnTT)
-target_include_directories(EcsSampleProject PRIVATE ext/SFML/include ext/entt/src)
+target_include_directories(EcsSampleProject
+        PRIVATE ${CMAKE_SOURCE_DIR}/src
+        SYSTEM ext/SFML/include
+        SYSTEM ext/entt/src)
 
 # Tests executable
 add_executable(runTests tests/test_main.cpp)

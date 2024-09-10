@@ -1,57 +1,47 @@
 #include <SFML/Graphics.hpp>
 #include <entt/entt.hpp>
 
-struct Position {
-	float x;
-	float y;
-};
+#include "Components/RenderSettings.h"
+#include "Components/Runtime.h"
 
-struct Velocity {
-	float vx;
-	float vy;
-};
+#include "Components/Position.h"
+#include "Components/RenderColor.h"
+
+#include "Systems/AppWindowInitSystem.h"
+#include "Systems/InputSystem.h"
+#include "Systems/RenderSystem.h"
 
 int main() {
-	const auto& modelSize = sf::Vector2u(800, 600);
-	sf::RenderWindow window(sf::VideoMode(modelSize), "EcsSampleProject");
-
 	entt::registry registry;
 
-	{
-		const auto entity = registry.create();
-		registry.emplace<Position>(entity, 400.f, 300.f);
-		registry.emplace<Velocity>(entity, 0.001f, 0.001f);
+	auto& ctx = registry.ctx();
+	ctx.emplace<Sample::Components::RenderSettings>(
+		"ECS Sample Project", // windowTitle
+		800, // screenWidth
+		600, // screenHeight
+		50.f // unitSize
+	);
+	ctx.emplace<Sample::Components::Runtime>(
+		true // isRunning
+	);
+
+	const auto testEntity = registry.create();
+	registry.emplace<Sample::Components::Position>(testEntity, 0, 0);
+	registry.emplace<Sample::Components::RenderColor>(testEntity, sf::Color::Green);
+
+	std::vector<std::unique_ptr<Sample::Systems::System>> systems;
+	systems.emplace_back(std::make_unique<Sample::Systems::AppWindowInitSystem>(registry));
+	systems.emplace_back(std::make_unique<Sample::Systems::InputSystem>(registry)); // InputSystem depends on AppWindowInitSystem
+	systems.emplace_back(std::make_unique<Sample::Systems::RenderSystem>(registry)); // RenderSystem depends on AppWindowInitSystem
+
+	for (const auto& system : systems) {
+		system->Init();
 	}
 
-	sf::CircleShape shape(50);
-	shape.setFillColor(sf::Color::Green);
-
-	while (window.isOpen()) {
-		while (auto eventOpt = window.pollEvent()) {
-			if (eventOpt.has_value()) {
-				const auto& event = eventOpt.value();
-				if (event.is<sf::Event::Closed>()) {
-					window.close();
-				}
-			}
+	while (ctx.get<Sample::Components::Runtime>().isRunning) {
+		for (const auto& system : systems) {
+			system->Update();
 		}
-
-		auto view = registry.view<Position, Velocity>();
-		for (const auto entity : view) {
-			auto& pos = view.get<Position>(entity);
-			const auto& vel = view.get<Velocity>(entity);
-			pos.x += vel.vx;
-			pos.y += vel.vy;
-		}
-
-		window.clear();
-		for (const auto entity : view) {
-			const auto& pos = view.get<Position>(entity);
-			auto vector = sf::Vector2f(pos.x, pos.y);
-			shape.setPosition(vector);
-			window.draw(shape);
-		}
-		window.display();
 	}
 
 	return 0;
