@@ -17,8 +17,8 @@ int main() {
 	auto& ctx = registry.ctx();
 	ctx.emplace<Sample::Components::RenderSettings>(
 		"ECS Sample Project", // windowTitle
-		800, // screenWidth
-		600, // screenHeight
+		static_cast<unsigned int>(800), // screenWidth
+		static_cast<unsigned int>(600), // screenHeight
 		50.f // unitSize
 	);
 	ctx.emplace<Sample::Components::Runtime>(
