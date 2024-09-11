@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace Sample::Components {
 	struct RenderSettings {
 		std::string windowTitle;
