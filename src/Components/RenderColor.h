@@ -1,9 +1,9 @@
 #pragma once
 
-#include <SFML/Graphics/Color.hpp>
+#include "Types/Color.h"
 
 namespace Sample::Components {
 	struct RenderColor {
-		sf::Color color;
+		Types::Color color;
 	};
 }

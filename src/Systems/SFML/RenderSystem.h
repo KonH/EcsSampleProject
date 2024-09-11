@@ -1,10 +1,10 @@
 #pragma once
-
+#ifdef USE_RENDER_SFML
 #include <entt/entity/registry.hpp>
 
-#include "System.h"
+#include "Systems/System.h"
 
-namespace Sample::Systems {
+namespace Sample::Systems::SFML {
 	class RenderSystem final : public System {
 	public:
 		explicit RenderSystem(entt::registry& registry);
@@ -15,3 +15,4 @@ namespace Sample::Systems {
 		entt::registry& _registry;
 	};
 }
+#endif

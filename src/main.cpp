@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <entt/entt.hpp>
 
 #include "Components/RenderSettings.h"
@@ -7,9 +6,19 @@
 #include "Components/Position.h"
 #include "Components/RenderColor.h"
 
-#include "Systems/AppWindowInitSystem.h"
-#include "Systems/InputSystem.h"
-#include "Systems/RenderSystem.h"
+#include "Systems/System.h"
+
+#ifdef USE_RENDER_SFML
+#include "Systems/SFML/AppWindowInitSystem.h"
+#include "Systems/SFML/InputSystem.h"
+#include "Systems/SFML/RenderSystem.h"
+#endif
+
+#ifdef USE_RENDER_SDL
+#include "Systems/SDL/AppWindowInitSystem.h"
+#include "Systems/SDL/InputSystem.h"
+#include "Systems/SDL/RenderSystem.h"
+#endif
 
 int main() {
 	entt::registry registry;
@@ -27,12 +36,21 @@ int main() {
 
 	const auto testEntity = registry.create();
 	registry.emplace<Sample::Components::Position>(testEntity, 0, 0);
-	registry.emplace<Sample::Components::RenderColor>(testEntity, sf::Color::Green);
+	registry.emplace<Sample::Components::RenderColor>(testEntity, Sample::Types::Color { 0, 255, 0, 255 });
 
 	std::vector<std::unique_ptr<Sample::Systems::System>> systems;
-	systems.emplace_back(std::make_unique<Sample::Systems::AppWindowInitSystem>(registry));
-	systems.emplace_back(std::make_unique<Sample::Systems::InputSystem>(registry)); // InputSystem depends on AppWindowInitSystem
-	systems.emplace_back(std::make_unique<Sample::Systems::RenderSystem>(registry)); // RenderSystem depends on AppWindowInitSystem
+
+#ifdef USE_RENDER_SFML
+	systems.emplace_back(std::make_unique<Sample::Systems::SFML::AppWindowInitSystem>(registry));
+	systems.emplace_back(std::make_unique<Sample::Systems::SFML::InputSystem>(registry)); // InputSystem depends on AppWindowInitSystem
+	systems.emplace_back(std::make_unique<Sample::Systems::SFML::RenderSystem>(registry)); // RenderSystem depends on AppWindowInitSystem
+#endif
+
+#if USE_RENDER_SDL
+	systems.emplace_back(std::make_unique<Sample::Systems::SDL::AppWindowInitSystem>(registry));
+	systems.emplace_back(std::make_unique<Sample::Systems::SDL::InputSystem>(registry)); // InputSystem depends on AppWindowInitSystem
+	systems.emplace_back(std::make_unique<Sample::Systems::SDL::RenderSystem>(registry)); // RenderSystem depends on AppWindowInitSystem
+#endif
 
 	for (const auto& system : systems) {
 		system->Init();

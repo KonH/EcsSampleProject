@@ -1,11 +1,10 @@
 #pragma once
-
+#ifdef USE_RENDER_SDL
 #include <entt/entity/registry.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
 
-#include "System.h"
+#include "Systems/System.h"
 
-namespace Sample::Systems {
+namespace Sample::Systems::SDL {
 	class AppWindowInitSystem final : public System {
 	public:
 		explicit AppWindowInitSystem(entt::registry& registry);
@@ -16,3 +15,4 @@ namespace Sample::Systems {
 		entt::registry& _registry;
 	};
 }
+#endif

@@ -10,3 +10,9 @@
 [submodule "ext/benchmark"]
 	path = ext/benchmark
 	url = https://github.com/google/benchmark.git
+[submodule "ext/SDL2"]
+	path = ext/SDL2
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "ext/SDL"]
+	path = ext/SDL
+	url = https://github.com/libsdl-org/SDL.git

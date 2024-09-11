@@ -1,10 +1,10 @@
 #pragma once
-
+#ifdef USE_RENDER_SDL
 #include <entt/entity/registry.hpp>
 
-#include "System.h"
+#include "Systems/System.h"
 
-namespace Sample::Systems {
+namespace Sample::Systems::SDL {
 	class InputSystem final : public System {
 	public:
 		explicit InputSystem(entt::registry& registry);
@@ -15,3 +15,4 @@ namespace Sample::Systems {
 		entt::registry& _registry;
 	};
 }
+#endif
