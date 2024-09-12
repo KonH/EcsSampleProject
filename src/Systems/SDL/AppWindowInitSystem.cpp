@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 
+#include "Logging/Logger.h"
 #include "Components/SDL/AppWindow.h"
 #include "Components/RenderSettings.h"
 
@@ -10,7 +11,7 @@ namespace Sample::Systems::SDL {
 	AppWindowInitSystem::AppWindowInitSystem(entt::registry &registry) : _registry(registry) {}
 
 	void AppWindowInitSystem::Init() {
-		SDL_Log("Initializing SDL AppWindow: started");
+		Logging::Logger::LogInfo("Initializing SDL AppWindow: started");
 		const auto& renderSettings = _registry.ctx().get<Components::RenderSettings>();
 		auto& appWindow = _registry.ctx().emplace<Components::SDL::AppWindow>();
 		appWindow.window = SDL_CreateWindow(
@@ -23,7 +24,7 @@ namespace Sample::Systems::SDL {
 		);
 
 		if (appWindow.window == nullptr) {
-			SDL_Log("Failed to create window: %s", SDL_GetError());
+			Logging::Logger::LogError("Failed to create window: %s", SDL_GetError());
 			return;
 		}
 

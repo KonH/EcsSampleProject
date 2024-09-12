@@ -9,8 +9,13 @@ else()
     set(IS_EMSCRIPTEN FALSE)
 endif()
 
+# Rendering options
 option(USE_RENDER_SFML "Use SFML for rendering" ON)
 option(USE_RENDER_SDL "Use SDL2 for rendering" OFF)
+
+# Logging options
+option(USE_LOG_COUT "Use standard output for logging" ON)
+option(USE_LOG_SDL "Use SDL2 for logging" OFF)
 
 add_subdirectory(ext/entt)
 
@@ -18,6 +23,13 @@ add_subdirectory(ext/entt)
 file(GLOB_RECURSE SRC_FILES
         ${CMAKE_SOURCE_DIR}/src/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Components/*.h
+        ${CMAKE_SOURCE_DIR}/src/Execution/*.h
+        ${CMAKE_SOURCE_DIR}/src/Execution/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/Frontend/*.h
+        ${CMAKE_SOURCE_DIR}/src/Frontend/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/Logger/*.h
+        ${CMAKE_SOURCE_DIR}/src/Logger/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/Execution/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Systems/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Types/*.h
 )
@@ -29,6 +41,8 @@ target_link_libraries(EcsSampleProject EnTT)
 if (IS_EMSCRIPTEN)
     set(USE_RENDER_SFML FALSE)
     set(USE_RENDER_SDL TRUE)
+    set(USE_LOG_COUT FALSE)
+    set(USE_LOG_SDL TRUE)
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
     target_link_options(EcsSampleProject PRIVATE "-sUSE_SDL=2" "-s WASM=1" "-s NO_EXIT_RUNTIME=1" "-s 'EXPORTED_RUNTIME_METHODS=[cwrap,ccall]'" "-s ALLOW_MEMORY_GROWTH=1")
 endif()
@@ -62,6 +76,14 @@ elseif(USE_RENDER_SDL)
     endif()
 else()
     message(FATAL_ERROR "Either USE_RENDER_SFML or USE_RENDER_SDL must be enabled.")
+endif()
+
+if (USE_LOG_COUT)
+    target_compile_definitions(EcsSampleProject PRIVATE USE_LOG_COUT)
+endif()
+
+if (USE_LOG_SDL)
+    target_compile_definitions(EcsSampleProject PRIVATE USE_LOG_SDL)
 endif()
 
 if(NOT IS_EMSCRIPTEN)
