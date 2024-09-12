@@ -16,7 +16,7 @@ namespace Sample::Systems::SDL {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_EVENT_QUIT) {
+			if (event.type == SDL_QUIT) {
 				_registry.ctx().get<Components::Runtime>().isRunning = false;
 				SDL_DestroyWindow(window);
 			}

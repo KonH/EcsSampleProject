@@ -8,6 +8,8 @@
 
 #include "Systems/System.h"
 
+// TODO: refactor define usage
+
 #ifdef USE_RENDER_SFML
 #include "Systems/SFML/AppWindowInitSystem.h"
 #include "Systems/SFML/InputSystem.h"
@@ -15,14 +17,37 @@
 #endif
 
 #ifdef USE_RENDER_SDL
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
 #include "Systems/SDL/AppWindowInitSystem.h"
 #include "Systems/SDL/InputSystem.h"
 #include "Systems/SDL/RenderSystem.h"
 #endif
 
-int main() {
-	entt::registry registry;
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
+// TODO: refactor to runner class
+
+// TODO: refactor logs
+
+entt::registry registry;
+std::vector<std::unique_ptr<Sample::Systems::System>> systems;
+
+void MainLoop() {
+	for (const auto& system : systems) {
+		system->Update();
+	}
+#ifdef __EMSCRIPTEN__
+	auto& ctx = registry.ctx();
+	if (!ctx.get<Sample::Components::Runtime>().isRunning) {
+		emscripten_cancel_main_loop();
+	}
+#endif
+}
+
+int main() {
 	auto& ctx = registry.ctx();
 	ctx.emplace<Sample::Components::RenderSettings>(
 		"ECS Sample Project", // windowTitle
@@ -37,8 +62,6 @@ int main() {
 	const auto testEntity = registry.create();
 	registry.emplace<Sample::Components::Position>(testEntity, 0, 0);
 	registry.emplace<Sample::Components::RenderColor>(testEntity, Sample::Types::Color { 0, 255, 0, 255 });
-
-	std::vector<std::unique_ptr<Sample::Systems::System>> systems;
 
 #ifdef USE_RENDER_SFML
 	systems.emplace_back(std::make_unique<Sample::Systems::SFML::AppWindowInitSystem>(registry));
@@ -56,11 +79,13 @@ int main() {
 		system->Init();
 	}
 
+#ifdef __EMSCRIPTEN__
+	emscripten_set_main_loop(MainLoop, 0, 1);
+#else
 	while (ctx.get<Sample::Components::Runtime>().isRunning) {
-		for (const auto& system : systems) {
-			system->Update();
-		}
+		MainLoop();
 	}
+#endif
 
 	return 0;
 }
