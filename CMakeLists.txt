@@ -27,6 +27,8 @@ add_executable(EcsSampleProject ${SRC_FILES})
 target_link_libraries(EcsSampleProject EnTT)
 
 if (IS_EMSCRIPTEN)
+    set(USE_RENDER_SFML FALSE)
+    set(USE_RENDER_SDL TRUE)
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
     target_link_options(EcsSampleProject PRIVATE "-sUSE_SDL=2" "-s WASM=1" "-s NO_EXIT_RUNTIME=1" "-s 'EXPORTED_RUNTIME_METHODS=[cwrap,ccall]'" "-s ALLOW_MEMORY_GROWTH=1")
 endif()
