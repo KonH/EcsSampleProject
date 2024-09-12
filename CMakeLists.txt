@@ -9,8 +9,8 @@ else()
     set(IS_EMSCRIPTEN FALSE)
 endif()
 
-option(USE_RENDER_SFML "Use SFML for rendering" OFF)
-option(USE_RENDER_SDL "Use SDL2 for rendering" ON)
+option(USE_RENDER_SFML "Use SFML for rendering" ON)
+option(USE_RENDER_SDL "Use SDL2 for rendering" OFF)
 
 add_subdirectory(ext/entt)
 
