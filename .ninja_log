@@ -1,0 +1,26 @@
+# ninja log v5
+1	243	1726611707560373658	CMakeFiles/EcsSampleProject.dir/src/Frontend/FrontendSystemsSdl.cpp.o	bc52bade34ca9bb2
+1	248	1726611707564373677	CMakeFiles/EcsSampleProject.dir/src/Frontend/FrontendSystemsSfml.cpp.o	5740310c06bb4947
+2	250	1726611707564373677	CMakeFiles/EcsSampleProject.dir/src/Logging/LoggerSdl.cpp.o	ed72400409efba41
+250	1593	1726611708908379918	CMakeFiles/EcsSampleProject.dir/src/Systems/Raylib/RenderClearSystem.cpp.o	2d0579629275611b
+1	1598	1726611708912379938	CMakeFiles/EcsSampleProject.dir/src/Logging/LoggerCout.cpp.o	dfd7ca8edd6de7e2
+248	1737	1726611709028380473	CMakeFiles/EcsSampleProject.dir/src/Systems/Raylib/InputSystem.cpp.o	57558012c8c7fbc6
+244	1936	1726611709244381470	CMakeFiles/EcsSampleProject.dir/src/Systems/Raylib/AppWindowInitSystem.cpp.o	76c23498560f46df
+1936	2198	1726611709500382652	CMakeFiles/EcsSampleProject.dir/src/Systems/SDL/AppWindowInitSystem.cpp.o	419f5d2ec4fb5fab
+2198	2474	1726611709776383926	CMakeFiles/EcsSampleProject.dir/src/Systems/SDL/InputSystem.cpp.o	f91e3439df3d5d00
+2474	2759	1726611710064385256	CMakeFiles/EcsSampleProject.dir/src/Systems/SDL/RenderClearSystem.cpp.o	9eba05ab39104423
+2759	3045	1726611710360386622	CMakeFiles/EcsSampleProject.dir/src/Systems/SDL/RenderColorSystem.cpp.o	34c95a10f97e695d
+1598	3059	1726611710348386567	CMakeFiles/EcsSampleProject.dir/src/Systems/Raylib/RenderDisplaySystem.cpp.o	c8a6ff138cf7945f
+0	3217	1726611710512387323	CMakeFiles/EcsSampleProject.dir/src/Execution/MainLoopRunner.cpp.o	9b992ab48c83b591
+3046	3250	1726611710568387582	CMakeFiles/EcsSampleProject.dir/src/Systems/SDL/RenderDisplaySystem.cpp.o	1192b384b0bf7aec
+3059	3315	1726611710616387804	CMakeFiles/EcsSampleProject.dir/src/Systems/SFML/AppWindowInitSystem.cpp.o	c2a9d3c109be9cc2
+3217	3431	1726611710744388394	CMakeFiles/EcsSampleProject.dir/src/Systems/SFML/InputSystem.cpp.o	2555036f330cc98e
+0	3483	1726611710772388524	CMakeFiles/EcsSampleProject.dir/src/Frontend/FrontendSystemsRaylib.cpp.o	fd8da923341c68b6
+3315	3508	1726611710820388746	CMakeFiles/EcsSampleProject.dir/src/Systems/SFML/RenderColorSystem.cpp.o	6f914f6dde2655c1
+3250	3516	1726611710832388800	CMakeFiles/EcsSampleProject.dir/src/Systems/SFML/RenderClearSystem.cpp.o	e4916b196339d48d
+3431	3630	1726611710936389281	CMakeFiles/EcsSampleProject.dir/src/Systems/SFML/RenderDisplaySystem.cpp.o	c0bc2251d6c8942e
+3483	3634	1726611710952389355	CMakeFiles/EcsSampleProject.dir/src/Systems/SFML/RenderTextSystem.cpp.o	5b08499dbd7a9bab
+1594	3754	1726611711060389854	CMakeFiles/EcsSampleProject.dir/src/Systems/Raylib/RenderColorSystem.cpp.o	a4a6d22e0dd26c6e
+1737	4140	1726611711452391663	CMakeFiles/EcsSampleProject.dir/src/Systems/Raylib/RenderTextSystem.cpp.o	198c0dcda2d266f1
+3508	5621	1726611712932398496	CMakeFiles/EcsSampleProject.dir/src/main.cpp.o	60413340bd72a6ab
+5621	6154	1726611713476401007	EcsSampleProject.html	4dda2e9f2d104fd0
