@@ -16,7 +16,9 @@ namespace Sample::Systems::Raylib {
 		SetTargetFPS(60);
 
 		auto& appWindow = _registry.ctx().emplace<Components::Raylib::AppWindow>();
+#if defined(PLATFORM_DESKTOP)
 		appWindow.window = GetWindowHandle();
+#endif
 	}
 }
 #endif

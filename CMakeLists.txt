@@ -53,6 +53,7 @@ if (IS_EMSCRIPTEN)
             "-s NO_EXIT_RUNTIME=1"
             "-s 'EXPORTED_RUNTIME_METHODS=[cwrap,ccall]'"
             "-s ALLOW_MEMORY_GROWTH=1"
+            "-s ASYNCIFY=1"
     )
 endif()
 
@@ -83,13 +84,16 @@ elseif(USE_RENDER_SDL)
         )
     endif()
 elseif(USE_RENDER_RAYLIB)
-    add_subdirectory(ext/raylib)
+    if(NOT IS_EMSCRIPTEN)
+        add_subdirectory(ext/raylib)
+    endif()
     target_include_directories(EcsSampleProject
             PRIVATE ${CMAKE_SOURCE_DIR}/src
             SYSTEM ext/raylib/src
     )
     if(IS_EMSCRIPTEN)
-        target_link_libraries(EcsSampleProject raylib GL dl m pthread)
+        set(RAYLIB_LIB "${CMAKE_SOURCE_DIR}/raylib.a")
+        target_link_libraries(EcsSampleProject ${RAYLIB_LIB} GL dl m pthread)
     else()
         target_link_libraries(EcsSampleProject raylib)
     endif()

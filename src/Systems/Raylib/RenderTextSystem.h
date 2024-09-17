@@ -2,6 +2,8 @@
 #ifdef USE_RENDER_RAYLIB
 #include <entt/entity/registry.hpp>
 
+#include <map>
+
 #include <raylib.h>
 
 #include "Systems/System.h"
@@ -18,7 +20,7 @@ namespace Sample::Systems::Raylib {
 
 	private:
 		entt::registry& _registry;
-		std::unordered_map<std::string, std::shared_ptr<Font>> _fontCache;
+		std::map<std::string, std::shared_ptr<Font>> _fontCache;
 	};
 }
 #endif

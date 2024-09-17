@@ -9,9 +9,11 @@ namespace Sample::Systems::Raylib {
 	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {}
 
 	void InputSystem::Update() {
+#if defined(PLATFORM_DESKTOP)
 		if (WindowShouldClose()) {
 			_registry.ctx().get<Components::Runtime>().isRunning = false;
 		}
+#endif
 	}
 }
 #endif
