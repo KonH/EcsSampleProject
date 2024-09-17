@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Sample::Components {
-	struct Position {
+	struct ScreenPosition {
 		int x;
 		int y;
 	};

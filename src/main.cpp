@@ -2,8 +2,10 @@
 
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
-#include "Components/Position.h"
+#include "Components/WorldPosition.h"
+#include "Components/ScreenPosition.h"
 #include "Components/RenderColor.h"
+#include "Components/Text.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include <Logging/Logger.h>
@@ -24,11 +26,20 @@ int main() {
 		true // isRunning
 	);
 
-	const auto testEntity = registry.create();
-	registry.emplace<Sample::Components::Position>(testEntity, 0, 0);
-	registry.emplace<Sample::Components::RenderColor>(testEntity, Sample::Types::Color { 0, 255, 0, 255 });
+	{
+		const auto testEntity = registry.create();
+		registry.emplace<Sample::Components::WorldPosition>(testEntity, 0, 0);
+		registry.emplace<Sample::Components::RenderColor>(testEntity, Sample::Types::Color { 0, 255, 0, 255 });
+	}
 
-	 Sample::Frontend::FrontendSystems::Initialize(registry, systems);
+	{
+		const auto testLabel = registry.create();
+		registry.emplace<Sample::Components::ScreenPosition>(testLabel, 0, 0);
+		registry.emplace<Sample::Components::RenderColor>(testLabel, Sample::Types::Color { 255, 0, 0, 255 });
+		registry.emplace<Sample::Components::Text>(testLabel, "Roboto-Regular.ttf", "Hello World!", 24);
+	}
+
+	Sample::Frontend::FrontendSystems::Initialize(registry, systems);
 
 	for (const auto& system : systems) {
 		system->Init();
