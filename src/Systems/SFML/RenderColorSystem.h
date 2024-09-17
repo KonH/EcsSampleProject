@@ -5,9 +5,9 @@
 #include "Systems/System.h"
 
 namespace Sample::Systems::SFML {
-	class RenderSystem final : public System {
+	class RenderColorSystem final : public System {
 	public:
-		explicit RenderSystem(entt::registry& registry);
+		explicit RenderColorSystem(entt::registry& registry);
 
 		void Update() override;
 
