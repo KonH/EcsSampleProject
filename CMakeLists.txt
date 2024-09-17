@@ -12,6 +12,7 @@ endif()
 # Rendering options
 option(USE_RENDER_SFML "Use SFML for rendering" ON)
 option(USE_RENDER_SDL "Use SDL2 for rendering" OFF)
+option(USE_RENDER_RAYLIB "Use Raylib for rendering" OFF)
 
 # Logging options
 option(USE_LOG_COUT "Use standard output for logging" ON)
@@ -40,11 +41,19 @@ target_link_libraries(EcsSampleProject EnTT)
 
 if (IS_EMSCRIPTEN)
     set(USE_RENDER_SFML FALSE)
-    set(USE_RENDER_SDL TRUE)
-    set(USE_LOG_COUT FALSE)
-    set(USE_LOG_SDL TRUE)
+    set(USE_RENDER_SDL FALSE)
+    set(USE_RENDER_RAYLIB TRUE)
+    set(USE_LOG_COUT TRUE)
+    set(USE_LOG_SDL FALSE)
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
-    target_link_options(EcsSampleProject PRIVATE "-sUSE_SDL=2" "-s WASM=1" "-s NO_EXIT_RUNTIME=1" "-s 'EXPORTED_RUNTIME_METHODS=[cwrap,ccall]'" "-s ALLOW_MEMORY_GROWTH=1")
+    target_link_options(EcsSampleProject PRIVATE
+            "-sUSE_GLFW=3"
+            "-sUSE_WEBGL2=1"
+            "-s WASM=1"
+            "-s NO_EXIT_RUNTIME=1"
+            "-s 'EXPORTED_RUNTIME_METHODS=[cwrap,ccall]'"
+            "-s ALLOW_MEMORY_GROWTH=1"
+    )
 endif()
 
 if(USE_RENDER_SFML)
@@ -56,7 +65,6 @@ if(USE_RENDER_SFML)
             SYSTEM ext/SFML/include
     )
     target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SFML)
-
 elseif(USE_RENDER_SDL)
     if(NOT IS_EMSCRIPTEN)
         add_subdirectory(ext/SDL)
@@ -74,8 +82,20 @@ elseif(USE_RENDER_SDL)
                 $<TARGET_FILE_DIR:EcsSampleProject>
         )
     endif()
+elseif(USE_RENDER_RAYLIB)
+    add_subdirectory(ext/raylib)
+    target_include_directories(EcsSampleProject
+            PRIVATE ${CMAKE_SOURCE_DIR}/src
+            SYSTEM ext/raylib/src
+    )
+    if(IS_EMSCRIPTEN)
+        target_link_libraries(EcsSampleProject raylib GL dl m pthread)
+    else()
+        target_link_libraries(EcsSampleProject raylib)
+    endif()
+    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_RAYLIB)
 else()
-    message(FATAL_ERROR "Either USE_RENDER_SFML or USE_RENDER_SDL must be enabled.")
+    message(FATAL_ERROR "Some render option must be enabled.")
 endif()
 
 if (USE_LOG_COUT)

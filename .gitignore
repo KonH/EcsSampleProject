@@ -1,3 +1,4 @@
 ﻿cmake-build-debug/*
 cmake-build-release/*
 build-web/*
+cmake-build-raylib-debug/*
