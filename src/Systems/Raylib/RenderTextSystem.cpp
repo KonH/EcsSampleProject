@@ -28,7 +28,7 @@ namespace Sample::Systems::Raylib {
 		if (_fontCache.contains(fontName)) {
 			return _fontCache[fontName];
 		}
-		const auto fontPath = "../assets/fonts/" + fontName;
+		const auto fontPath = "assets/fonts/" + fontName;
 		Font font = LoadFont(fontPath.c_str());
 		if (!font.texture.id) {
 			_fontCache[fontName] = nullptr;
