@@ -6,6 +6,7 @@
 #include "Components/ScreenPosition.h"
 #include "Components/RenderColor.h"
 #include "Components/Text.h"
+#include "Components/Texture.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include <Logging/Logger.h>
@@ -37,6 +38,12 @@ int main() {
 		registry.emplace<Sample::Components::ScreenPosition>(testLabel, 0, 0);
 		registry.emplace<Sample::Components::RenderColor>(testLabel, Sample::Types::Color { 255, 0, 0, 255 });
 		registry.emplace<Sample::Components::Text>(testLabel, "Roboto-Regular.ttf", "Hello World!", 24);
+	}
+
+	{
+		const auto testTexture = registry.create();
+		registry.emplace<Sample::Components::ScreenPosition>(testTexture, 200, 0);
+		registry.emplace<Sample::Components::Texture>(testTexture, "testTexture.png");
 	}
 
 	Sample::Frontend::FrontendSystems::Initialize(registry, systems);
