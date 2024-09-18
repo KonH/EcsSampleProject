@@ -1,5 +1,9 @@
 #pragma once
 #ifdef USE_RENDER_RAYLIB
+
+#include <string>
+#include <unordered_map>
+
 #include <entt/entity/registry.hpp>
 #include <raylib.h>
 
