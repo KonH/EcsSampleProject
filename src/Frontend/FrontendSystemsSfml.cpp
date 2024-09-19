@@ -9,10 +9,13 @@
 #include "Systems/SFML/RenderDisplaySystem.h"
 
 namespace Sample::Frontend {
-	void FrontendSystems::Initialize(entt::registry& registry, std::vector<std::unique_ptr<Sample::Systems::System>>& systems) {
+	void FrontendSystems::PreMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 		systems.emplace_back(std::make_unique<Systems::SFML::AppWindowInitSystem>(registry));
 		// All systems below depend on AppWindowInitSystem
-	    systems.emplace_back(std::make_unique<Systems::SFML::InputSystem>(registry));
+		systems.emplace_back(std::make_unique<Systems::SFML::InputSystem>(registry));
+	}
+
+	void FrontendSystems::PostMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 	    systems.emplace_back(std::make_unique<Systems::SFML::RenderClearSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::SFML::RenderColorSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::SFML::RenderTextSystem>(registry));

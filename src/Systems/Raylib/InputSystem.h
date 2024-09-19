@@ -5,14 +5,17 @@
 #include "Systems/System.h"
 
 namespace Sample::Systems::Raylib {
-  class InputSystem final : public System {
-  public:
-    explicit InputSystem(entt::registry& registry);
+	class InputSystem final : public System {
+	public:
+		explicit InputSystem(entt::registry& registry);
 
-    void Update() override;
+		void Update() override;
 
-  private:
-    entt::registry& _registry;
-  };
+	private:
+		void OnKeyPressed(int key);
+
+	private:
+		entt::registry& _registry;
+	};
 }
 #endif

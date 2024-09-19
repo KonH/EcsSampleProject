@@ -46,7 +46,9 @@ int main() {
 		registry.emplace<Sample::Components::Texture>(testTexture, "testTexture.png");
 	}
 
-	Sample::Frontend::FrontendSystems::Initialize(registry, systems);
+	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
+	// TODO
+	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
 
 	for (const auto& system : systems) {
 		system->Init();

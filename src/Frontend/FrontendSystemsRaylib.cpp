@@ -10,10 +10,13 @@
 #include "Systems/Raylib/RenderDisplaySystem.h"
 
 namespace Sample::Frontend {
-	void FrontendSystems::Initialize(entt::registry& registry, std::vector<std::unique_ptr<Sample::Systems::System>>& systems) {
+	void FrontendSystems::PreMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 		systems.emplace_back(std::make_unique<Systems::Raylib::AppWindowInitSystem>(registry));
 		// All systems below depend on AppWindowInitSystem
 		systems.emplace_back(std::make_unique<Systems::Raylib::InputSystem>(registry));
+	}
+
+	void FrontendSystems::PostMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderClearSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderColorSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderTextureSystem>(registry));
