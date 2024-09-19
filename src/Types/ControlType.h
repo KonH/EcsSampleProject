@@ -1,3 +1,5 @@
+#pragma once
+
 namespace Sample::Types {
 	  enum class ControlType {
 		None = 0,

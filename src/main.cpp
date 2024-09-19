@@ -1,16 +1,17 @@
 #include <entt/entt.hpp>
 
+#include "Components/PlayerFlag.h"
+#include "Components/RenderColor.h"
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
 #include "Components/WorldPosition.h"
-#include "Components/ScreenPosition.h"
-#include "Components/RenderColor.h"
-#include "Components/Text.h"
-#include "Components/Texture.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
-#include <Logging/Logger.h>
+#include "Logging/Logger.h"
 #include "Systems/System.h"
+#include "Systems/Movement/PlayerMovementSystem.h"
+#include "Systems/Movement/WorldMovementSystem.h"
+#include "Systems/Utility/EventCleanUpSystem.h"
 
 int main() {
 	Sample::Logging::Logger::LogInfo("Starting ECS Sample Project");
@@ -28,27 +29,17 @@ int main() {
 	);
 
 	{
-		const auto testEntity = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(testEntity, 0, 0);
-		registry.emplace<Sample::Components::RenderColor>(testEntity, Sample::Types::Color { 0, 255, 0, 255 });
-	}
-
-	{
-		const auto testLabel = registry.create();
-		registry.emplace<Sample::Components::ScreenPosition>(testLabel, 0, 0);
-		registry.emplace<Sample::Components::RenderColor>(testLabel, Sample::Types::Color { 255, 0, 0, 255 });
-		registry.emplace<Sample::Components::Text>(testLabel, "Roboto-Regular.ttf", "Hello World!", 24);
-	}
-
-	{
-		const auto testTexture = registry.create();
-		registry.emplace<Sample::Components::ScreenPosition>(testTexture, 200, 0);
-		registry.emplace<Sample::Components::Texture>(testTexture, "testTexture.png");
+		const auto playerEntity = registry.create();
+		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0, 0);
+		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
+		registry.emplace<Sample::Components::PlayerFlag>(playerEntity);
 	}
 
 	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
-	// TODO
+	systems.push_back(std::make_unique<Sample::Systems::Movement::PlayerMovementSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Movement ::WorldMovementSystem>(registry));
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
+	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));
 
 	for (const auto& system : systems) {
 		system->Init();

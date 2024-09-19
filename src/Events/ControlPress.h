@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Types/ControlType.h"
 
 namespace Sample::Events {

@@ -1,4 +1,3 @@
-#include <Logging/Logger.h>
 #ifdef USE_RENDER_RAYLIB
 #include "InputSystem.h"
 
@@ -18,14 +17,37 @@ namespace Sample::Systems::Raylib {
 #endif
 		for (int key = KEY_SPACE; key <= KEY_KB_MENU; ++key) {
 			if (IsKeyPressed(key)) {
-				OnKeyPressed(key);
+				OnKeyPress(key);
 			}
 		}
 	}
 
-	void InputSystem::OnKeyPressed(int key) {
-		Logging::Logger::LogInfo("Key pressed: " + std::to_string(key));
-		// TODO
+	void InputSystem::OnKeyPress(const int key) const {
+		switch (key) {
+			case KEY_RIGHT:
+				RaiseControlPress(Types::ControlType::Right);
+				break;
+
+			case KEY_LEFT:
+				RaiseControlPress(Types::ControlType::Left);
+				break;
+
+			case KEY_DOWN:
+				RaiseControlPress(Types::ControlType::Down);
+				break;
+
+			case KEY_UP:
+				RaiseControlPress(Types::ControlType::Up);
+				break;
+
+			default:
+				// Non-control key down
+				break;
+		}
+	}
+
+	void InputSystem::RaiseControlPress(const Types::ControlType key) const {
+		_registry.emplace<Events::ControlPress>(_registry.create(), key);
 	}
 }
 #endif

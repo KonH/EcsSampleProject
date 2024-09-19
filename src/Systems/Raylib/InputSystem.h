@@ -3,6 +3,7 @@
 #include <entt/entity/registry.hpp>
 
 #include "Systems/System.h"
+#include "Types/ControlType.h"
 
 namespace Sample::Systems::Raylib {
 	class InputSystem final : public System {
@@ -12,7 +13,9 @@ namespace Sample::Systems::Raylib {
 		void Update() override;
 
 	private:
-		void OnKeyPressed(int key);
+		void OnKeyPress(int key) const;
+
+		void RaiseControlPress(Types::ControlType key) const;
 
 	private:
 		entt::registry& _registry;
