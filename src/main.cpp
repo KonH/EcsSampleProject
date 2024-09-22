@@ -1,11 +1,11 @@
 #include <entt/entt.hpp>
 
-#include "Components/PlayerFlag.h"
+#include "Components/IsPlayer.h"
 #include "Components/RenderColor.h"
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
-#include "Components/WorldPosition.h"
 #include "Components/ScreenPosition.h"
+#include "Components/WorldPosition.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
@@ -34,7 +34,7 @@ int main() {
 		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0, 0);
 		registry.emplace<Sample::Components::ScreenPosition>(playerEntity, 0, 0);
 		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
-		registry.emplace<Sample::Components::PlayerFlag>(playerEntity);
+		registry.emplace<Sample::Components::IsPlayer>(playerEntity);
 	}
 
 	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
