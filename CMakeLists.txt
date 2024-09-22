@@ -7,6 +7,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clan
     add_compile_options(-Werror)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/WX)
+    target_precompile_headers(EcsSampleProject PRIVATE src/pch.h)
 endif()
 
 # Rendering options
