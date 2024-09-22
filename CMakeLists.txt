@@ -3,6 +3,12 @@ project(EcsSampleProject)
 
 set(CMAKE_CXX_STANDARD 20)
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_compile_options(-Werror)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    add_compile_options(/WX)
+endif()
+
 # Rendering options
 option(USE_RENDER_SFML "Use SFML for rendering" OFF) # Legacy option
 option(USE_RENDER_SDL "Use SDL2 for rendering" OFF) # Legacy option

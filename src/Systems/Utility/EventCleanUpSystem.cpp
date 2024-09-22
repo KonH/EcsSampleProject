@@ -1,13 +1,14 @@
 #include "EventCleanUpSystem.h"
 
-#include "Events/ControlPress.h"
-#include "Events/WorldMovement.h"
+#include "Components/ControlPress.h"
+#include "Components/ActionFinish.h"
 
 namespace Sample::Systems::Utility {
 	EventCleanUpSystem::EventCleanUpSystem(entt::registry &registry) : _registry(registry) {}
 
 	void EventCleanUpSystem::Update() {
-		CleanUp<Events::ControlPress>();
-		CleanUp<Events::WorldMovement>();
+		// TODO: code generation for event clean up
+		CleanUp<Components::ControlPress>();
+		CleanUp<Components::ActionFinish>();
 	}
 }

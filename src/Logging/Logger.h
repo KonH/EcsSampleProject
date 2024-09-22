@@ -6,6 +6,7 @@
 #include <iostream>
 
 namespace Sample::Logging {
+	// TODO: fix formatting
 	class Logger {
 	public:
 		template<typename... Args>

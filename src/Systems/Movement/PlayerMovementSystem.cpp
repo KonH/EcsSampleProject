@@ -2,33 +2,33 @@
 
 #include "Components/IsPlayer.h"
 #include "Components/WorldPosition.h"
-#include "Events/ControlPress.h"
-#include "Events/WorldMovement.h"
+#include "Components/ControlPress.h"
+#include "Components/WorldMovement.h"
+#include "Components/ActionProgress.h"
 
 namespace Sample::Systems::Movement {
 	PlayerMovementSystem::PlayerMovementSystem(entt::registry &registry) : _registry(registry) {}
 
 	void PlayerMovementSystem::Update() {
-		const auto& controlView = _registry.view<Events::ControlPress>();
-		const auto& playerView = _registry.view<Components::IsPlayer, Components::WorldPosition>();
-		for (const auto controlEntity : controlView) {
-			const auto& control = controlView.get<Events::ControlPress>(controlEntity);
-			for (const auto playerEntity : playerView) {
+		const auto&	controlView = _registry.view<Components::ControlPress>();
+		const auto& playerView = _registry.view<Components::IsPlayer, Components::WorldPosition>(entt::exclude<Components::ActionProgress>);
+		for (auto [controlEntity, control] : controlView.each()) {
+			for (auto [playerEntity, _] : playerView.each()) {
 				switch (control.control) {
 					case Types::ControlType::Right:
-						_registry.emplace<Events::WorldMovement>(playerEntity, 1, 0);
+						ApplyMovement(playerEntity, 1, 0);
 						break;
 
 					case Types::ControlType::Left:
-						_registry.emplace<Events::WorldMovement>(playerEntity, -1, 0);
+						ApplyMovement(playerEntity, -1, 0);
 						break;
 
 					case Types::ControlType::Down:
-						_registry.emplace<Events::WorldMovement>(playerEntity, 0, 1);
+						ApplyMovement(playerEntity, 0, 1);
 						break;
 
 					case Types::ControlType::Up:
-						_registry.emplace<Events::WorldMovement>(playerEntity, 0, -1);
+						ApplyMovement(playerEntity, 0, -1);
 						break;
 
 					default:
@@ -37,5 +37,10 @@ namespace Sample::Systems::Movement {
 				}
 			}
 		}
+	}
+
+	void PlayerMovementSystem::ApplyMovement(const entt::entity entity, const int x, const int y) const {
+		_registry.emplace<Components::WorldMovement>(entity, x, y);
+		_registry.emplace<Components::ActionProgress>(entity, 0.0f, 0.33f); // TODO: make duration configurable
 	}
 }

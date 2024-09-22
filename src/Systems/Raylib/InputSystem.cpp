@@ -4,7 +4,7 @@
 #include <raylib.h>
 
 #include "Components/Runtime.h"
-#include "Events/ControlPress.h"
+#include "Components/ControlPress.h"
 
 namespace Sample::Systems::Raylib {
 	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {}
@@ -47,7 +47,7 @@ namespace Sample::Systems::Raylib {
 	}
 
 	void InputSystem::RaiseControlPress(const Types::ControlType key) const {
-		_registry.emplace<Events::ControlPress>(_registry.create(), key);
+		_registry.emplace<Components::ControlPress>(_registry.create(), key);
 	}
 }
 #endif

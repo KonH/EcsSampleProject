@@ -2,7 +2,7 @@
 
 #include "Types/ControlType.h"
 
-namespace Sample::Events {
+namespace Sample::Components {
 	struct ControlPress {
 		Types::ControlType control;
 	};

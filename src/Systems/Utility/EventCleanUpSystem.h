@@ -13,12 +13,14 @@ namespace Sample::Systems::Utility {
 	private:
 		template<class T>
 		void CleanUp() {
-			_registry.view<T>().each([this](const entt::entity entity, auto) {
+			const auto view =_registry.view<T>();
+			for (auto tuple : view.each()) {
+				const auto entity = std::get<0>(tuple);
 				_registry.remove<T>(entity);
 				if (_registry.orphan(entity)) {
 					_registry.destroy(entity);
 				}
-			});
+			}
 		}
 
 	private:

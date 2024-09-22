@@ -9,9 +9,12 @@
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
+#include "Systems/Utility/DeltaTimeUpdateSystem.h"
+#include "Systems/Utility/ActionProgressUpdateSystem.h"
 #include "Systems/Movement/PlayerMovementSystem.h"
 #include "Systems/Movement/WorldMovementSystem.h"
 #include "Systems/Presentation/WorldToScreenPositionSystem.h"
+#include "Systems/Utility/ActionProgressCleanUpSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
 
 int main() {
@@ -26,7 +29,8 @@ int main() {
 		50.f // unitSize
 	);
 	ctx.emplace<Sample::Components::Runtime>(
-		true // isRunning
+		true, // isRunning
+		0.f // deltaTime
 	);
 
 	{
@@ -37,11 +41,15 @@ int main() {
 		registry.emplace<Sample::Components::IsPlayer>(playerEntity);
 	}
 
+	// TODO: simplify this
+	systems.push_back(std::make_unique<Sample::Systems::Utility::DeltaTimeUpdateSystem>(registry));
 	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
+	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressUpdateSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Movement::PlayerMovementSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Movement::WorldMovementSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSystem>(registry));
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
+	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressCleanUpSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));
 
 	for (const auto& system : systems) {

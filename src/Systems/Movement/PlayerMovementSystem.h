@@ -10,6 +10,8 @@ namespace Sample::Systems::Movement {
 
 		void Update() override;
 
+		void ApplyMovement(entt::entity entity, int x, int y) const;
+
 	private:
 		entt::registry& _registry;
 	};
