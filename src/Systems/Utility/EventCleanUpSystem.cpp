@@ -1,6 +1,7 @@
 #include "EventCleanUpSystem.h"
 
 #include "Components/ControlPress.h"
+#include "Components/ActionStart.h"
 #include "Components/ActionFinish.h"
 
 namespace Sample::Systems::Utility {
@@ -9,6 +10,7 @@ namespace Sample::Systems::Utility {
 	void EventCleanUpSystem::Update() {
 		// TODO: code generation for event clean up
 		CleanUp<Components::ControlPress>();
+		CleanUp<Components::ActionStart>();
 		CleanUp<Components::ActionFinish>();
 	}
 }

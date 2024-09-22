@@ -5,6 +5,7 @@
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
 #include "Components/ScreenPosition.h"
+#include "Components/RenderPosition.h"
 #include "Components/WorldPosition.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
@@ -14,6 +15,8 @@
 #include "Systems/Movement/PlayerMovementSystem.h"
 #include "Systems/Movement/WorldMovementSystem.h"
 #include "Systems/Presentation/WorldToScreenPositionSystem.h"
+#include "Systems/Animation/MovementAnimationSystem.h"
+#include "Systems/Presentation/ScreenToRenderPositionSystem.h"
 #include "Systems/Utility/ActionProgressCleanUpSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
 
@@ -37,6 +40,7 @@ int main() {
 		const auto playerEntity = registry.create();
 		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0, 0);
 		registry.emplace<Sample::Components::ScreenPosition>(playerEntity, 0, 0);
+		registry.emplace<Sample::Components::RenderPosition>(playerEntity, 0, 0);
 		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
 		registry.emplace<Sample::Components::IsPlayer>(playerEntity);
 	}
@@ -48,6 +52,8 @@ int main() {
 	systems.push_back(std::make_unique<Sample::Systems::Movement::PlayerMovementSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Movement::WorldMovementSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Animation::MovementAnimationSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSystem>(registry));
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
 	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressCleanUpSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));

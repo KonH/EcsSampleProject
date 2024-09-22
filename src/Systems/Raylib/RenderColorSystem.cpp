@@ -3,7 +3,7 @@
 
 #include <raylib.h>
 
-#include "Components/ScreenPosition.h"
+#include "Components/RenderPosition.h"
 #include "Components/RenderColor.h"
 #include "Components/RenderSettings.h"
 
@@ -13,11 +13,10 @@ namespace Sample::Systems::Raylib {
 	void RenderColorSystem::Update() {
 		const auto renderSettings = _registry.ctx().get<Components::RenderSettings>();
 		const auto unitSize = renderSettings.unitSize;
-		const auto& view = _registry.view<Components::ScreenPosition, Components::RenderColor>();
+		const auto& view = _registry.view<Components::RenderPosition, Components::RenderColor>();
 		for (const auto entity : view) {
-			const auto& position = view.get<Components::ScreenPosition>(entity);
+			const auto& position = view.get<Components::RenderPosition>(entity);
 			const auto& renderColor = view.get<Components::RenderColor>(entity);
-
 			DrawRectangle(
 				position.x,
 				position.y,

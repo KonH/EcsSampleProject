@@ -19,6 +19,7 @@ option(USE_LOG_COUT "Use standard output for logging" ON)
 option(USE_LOG_SDL "Use SDL2 for logging" OFF) # Legacy option
 
 add_subdirectory(ext/entt)
+add_subdirectory(ext/tweeny)
 
 # Source files
 file(GLOB_RECURSE SRC_FILES
@@ -37,7 +38,7 @@ file(GLOB_RECURSE SRC_FILES
 
 # Main project executable
 add_executable(EcsSampleProject ${SRC_FILES})
-target_link_libraries(EcsSampleProject EnTT)
+target_link_libraries(EcsSampleProject EnTT tweeny)
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 

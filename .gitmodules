@@ -16,3 +16,6 @@
 [submodule "ext/raylib"]
 	path = ext/raylib
 	url = https://github.com/raysan5/raylib.git
+[submodule "ext/tweeny"]
+	path = ext/tweeny
+	url = https://github.com/mobius3/tweeny.git

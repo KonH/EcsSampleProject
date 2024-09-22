@@ -1,7 +1,7 @@
 #ifdef USE_RENDER_RAYLIB
 #include "RenderTextureSystem.h"
 
-#include "Components/ScreenPosition.h"
+#include "Components/RenderPosition.h"
 #include "Components/Texture.h"
 #include "Logging/Logger.h"
 
@@ -9,9 +9,9 @@ namespace Sample::Systems::Raylib {
 	RenderTextureSystem::RenderTextureSystem(entt::registry& registry) : _registry(registry) {}
 
 	void RenderTextureSystem::Update() {
-		const auto& view = _registry.view<Components::ScreenPosition, Components::Texture>();
+		const auto& view = _registry.view<Components::RenderPosition, Components::Texture>();
 		for (const auto entity : view) {
-			const auto& position = view.get<Components::ScreenPosition>(entity);
+			const auto& position = view.get<Components::RenderPosition>(entity);
 			const auto& texture = view.get<Components::Texture>(entity);
 
 			if (const auto t = TryLoadTexture(texture.textureName); t) {
