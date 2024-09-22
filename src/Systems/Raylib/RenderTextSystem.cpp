@@ -7,6 +7,7 @@
 #include "Components/RenderColor.h"
 #include "Components/Text.h"
 #include "Logging/Logger.h"
+#include "Utils.h"
 
 namespace Sample::Systems::Raylib {
 	RenderTextSystem::RenderTextSystem(entt::registry &registry) : _registry(registry) {}
@@ -14,12 +15,14 @@ namespace Sample::Systems::Raylib {
 	void RenderTextSystem::Update() {
 		const auto& view = _registry.view<Components::ScreenPosition, Components::RenderColor, Components::Text>();
 		for (const auto entity : view) {
-			const auto& position = view.get<Components::ScreenPosition>(entity);
+			const auto& screenPosition = view.get<Components::ScreenPosition>(entity);
 			const auto& renderColor = view.get<Components::RenderColor>(entity);
 			const auto& text = view.get<Components::Text>(entity);
 
 			if (const auto font = TryLoadFont(text.fontName); font) {
-				DrawTextEx(*font, text.text.c_str(), Vector2{ static_cast<float>(position.x), static_cast<float>(position.y) }, text.size, 1, Color{ renderColor.color.red, renderColor.color.green, renderColor.color.blue, renderColor.color.alpha });
+				const auto pos = Vector2 { static_cast<float>(screenPosition.x), static_cast<float>(screenPosition.y) };
+				const auto color = Utils::ConvertColor(renderColor.color);
+				DrawTextEx(*font, text.text.c_str(), pos, static_cast<float>(text.size), 1, color);
 			}
 		}
 	}

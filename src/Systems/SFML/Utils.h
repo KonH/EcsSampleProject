@@ -1,5 +1,5 @@
 #pragma once
-
+#ifdef USE_RENDER_SFML
 #include <SFML/Graphics/Color.hpp>
 
 #include "Types/Color.h"
@@ -9,3 +9,4 @@ namespace Sample::Systems::SFML::Utils {
 		return { color.red, color.green, color.blue, color.alpha };
 	}
 }
+#endif

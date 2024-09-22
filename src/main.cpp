@@ -5,12 +5,13 @@
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
 #include "Components/WorldPosition.h"
+#include "Components/ScreenPosition.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
-#include "Systems/System.h"
 #include "Systems/Movement/PlayerMovementSystem.h"
 #include "Systems/Movement/WorldMovementSystem.h"
+#include "Systems/Presentation/WorldToScreenPositionSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
 
 int main() {
@@ -31,13 +32,15 @@ int main() {
 	{
 		const auto playerEntity = registry.create();
 		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0, 0);
+		registry.emplace<Sample::Components::ScreenPosition>(playerEntity, 0, 0);
 		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
 		registry.emplace<Sample::Components::PlayerFlag>(playerEntity);
 	}
 
 	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
 	systems.push_back(std::make_unique<Sample::Systems::Movement::PlayerMovementSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Movement ::WorldMovementSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Movement::WorldMovementSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSystem>(registry));
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
 	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));
 
