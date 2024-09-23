@@ -3,6 +3,7 @@
 #include "Components/ActionFinish.h"
 #include "Components/ActionStart.h"
 #include "Components/ControlPress.h"
+#include "Components/ControlDown.h"
 #include "Components/WorldMovementIntent.h"
 
 namespace Sample::Systems::Utility {
@@ -11,6 +12,7 @@ namespace Sample::Systems::Utility {
 	void EventCleanUpSystem::Update() {
 		// TODO: code generation for event clean up
 		CleanUp<Components::ControlPress>();
+		CleanUp<Components::ControlDown>();
 		CleanUp<Components::ActionStart>();
 		CleanUp<Components::ActionFinish>();
 		CleanUp<Components::WorldMovementIntent>();

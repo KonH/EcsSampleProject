@@ -14,8 +14,10 @@ namespace Sample::Systems::Raylib {
 
 	private:
 		void OnKeyPress(int key) const;
+		void OnKeyDown(int key) const;
 
 		void RaiseControlPress(Types::ControlType key) const;
+		void RaiseControlDown(Types::ControlType key) const;
 
 	private:
 		entt::registry& _registry;

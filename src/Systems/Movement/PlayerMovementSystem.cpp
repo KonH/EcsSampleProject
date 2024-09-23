@@ -1,7 +1,7 @@
 #include "PlayerMovementSystem.h"
 
 #include "Components/ActionProgress.h"
-#include "Components/ControlPress.h"
+#include "Components/ControlDown.h"
 #include "Components/IsPlayer.h"
 #include "Components/WorldMovementIntent.h"
 #include "Components/WorldPosition.h"
@@ -10,7 +10,7 @@ namespace Sample::Systems::Movement {
 	PlayerMovementSystem::PlayerMovementSystem(entt::registry &registry) : _registry(registry) {}
 
 	void PlayerMovementSystem::Update() {
-		const auto&	controlView = _registry.view<Components::ControlPress>();
+		const auto&	controlView = _registry.view<Components::ControlDown>();
 		const auto& playerView = _registry.view<Components::IsPlayer, Components::WorldPosition>(entt::exclude<Components::ActionProgress>);
 		for (auto [controlEntity, control] : controlView.each()) {
 			for (auto [playerEntity, _] : playerView.each()) {
