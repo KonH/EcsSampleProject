@@ -16,8 +16,8 @@ namespace Sample::Systems::Presentation {
 		for (const auto entity : view) {
 			const auto& worldPosition = view.get<Components::WorldPosition>(entity);
 			auto& screenPosition = view.get<Components::ScreenPosition>(entity);
-			screenPosition.x = static_cast<int>(centerX + static_cast<float>(worldPosition.x) * unitSize);
-			screenPosition.y = static_cast<int>(centerY + static_cast<float>(worldPosition.y) * unitSize);
+			screenPosition.position.x = static_cast<int>(centerX + static_cast<float>(worldPosition.position.x) * unitSize);
+			screenPosition.position.y = static_cast<int>(centerY + static_cast<float>(worldPosition.position.y) * unitSize);
 		}
 	}
 }

@@ -20,7 +20,7 @@ namespace Sample::Systems::Raylib {
 			const auto& text = view.get<Components::Text>(entity);
 
 			if (const auto font = TryLoadFont(text.fontName); font) {
-				const auto pos = Vector2 { static_cast<float>(renderPosition.x), static_cast<float>(renderPosition.y) };
+				const auto pos = Vector2 { static_cast<float>(renderPosition.position.x), static_cast<float>(renderPosition.position.y) };
 				const auto color = Utils::ConvertColor(renderColor.color);
 				DrawTextEx(*font, text.text.c_str(), pos, static_cast<float>(text.size), 1, color);
 			}

@@ -18,8 +18,8 @@ namespace Sample::Systems::Raylib {
 			const auto& position = view.get<Components::RenderPosition>(entity);
 			const auto& renderColor = view.get<Components::RenderColor>(entity);
 			DrawRectangle(
-				position.x,
-				position.y,
+				position.position.x,
+				position.position.y,
 				static_cast<int>(unitSize),
 				static_cast<int>(unitSize),
 				Color { renderColor.color.red, renderColor.color.green, renderColor.color.blue, renderColor.color.alpha }

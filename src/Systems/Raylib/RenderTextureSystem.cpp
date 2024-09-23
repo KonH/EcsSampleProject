@@ -15,7 +15,7 @@ namespace Sample::Systems::Raylib {
 			const auto& texture = view.get<Components::Texture>(entity);
 
 			if (const auto t = TryLoadTexture(texture.textureName); t) {
-				DrawTexture(*t, position.x, position.y, WHITE);
+				DrawTexture(*t, position.position.x, position.position.y, WHITE);
 			}
 		}
 	}

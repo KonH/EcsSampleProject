@@ -1,11 +1,10 @@
 #include "PlayerMovementSystem.h"
 
-#include "Components/IsPlayer.h"
-#include "Components/WorldPosition.h"
-#include "Components/ControlPress.h"
-#include "Components/WorldMovement.h"
 #include "Components/ActionProgress.h"
-#include "Components/ActionStart.h"
+#include "Components/ControlPress.h"
+#include "Components/IsPlayer.h"
+#include "Components/WorldMovementIntent.h"
+#include "Components/WorldPosition.h"
 
 namespace Sample::Systems::Movement {
 	PlayerMovementSystem::PlayerMovementSystem(entt::registry &registry) : _registry(registry) {}
@@ -41,8 +40,6 @@ namespace Sample::Systems::Movement {
 	}
 
 	void PlayerMovementSystem::ApplyMovement(const entt::entity entity, const int x, const int y) const {
-		_registry.emplace<Components::WorldMovement>(entity, x, y);
-		_registry.emplace<Components::ActionProgress>(entity, 0.0f, 0.15f); // TODO: make duration configurable
-		_registry.emplace<Components::ActionStart>(entity);
+		_registry.emplace<Components::WorldMovementIntent>(entity, x, y);
 	}
 }

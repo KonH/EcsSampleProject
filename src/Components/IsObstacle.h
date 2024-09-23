@@ -1,5 +1,5 @@
 #pragma once
 
 namespace Sample::Components {
-	struct IsPlayer {};
+	struct IsObstacle {};
 }

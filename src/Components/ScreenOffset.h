@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Types/Vector2Int.h"
+
 namespace Sample::Components {
 	struct ScreenOffset {
-		int x;
-		int y;
+		Types::Vector2Int offset;
 	};
 }

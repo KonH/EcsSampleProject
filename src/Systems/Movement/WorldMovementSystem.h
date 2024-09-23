@@ -1,6 +1,8 @@
 #pragma once
+
 #include <entt/entity/registry.hpp>
 
+#include "Components/WorldMovementIntent.h"
 #include "Systems/System.h"
 
 namespace Sample::Systems::Movement {
@@ -9,6 +11,8 @@ namespace Sample::Systems::Movement {
 		explicit WorldMovementSystem(entt::registry& registry);
 
 		void Update() override;
+
+		void ApplyMovement(entt::entity entity, const Components::WorldMovementIntent& intent) const;
 
 	private:
 		entt::registry& _registry;

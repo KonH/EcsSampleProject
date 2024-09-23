@@ -8,5 +8,6 @@
     <mapping directory="$PROJECT_DIR$/ext/entt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/googletest" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/raylib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ext/tweeny" vcs="Git" />
   </component>
 </project>
