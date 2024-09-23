@@ -22,6 +22,15 @@
 #include "Systems/Utility/DeltaTimeUpdateSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
 
+void testAddObstacle(entt::registry& registry, const int x, const int y) {
+	const auto obstacleEntity = registry.create();
+	registry.emplace<Sample::Components::WorldPosition>(obstacleEntity, x, y);
+	registry.emplace<Sample::Components::ScreenPosition>(obstacleEntity);
+	registry.emplace<Sample::Components::RenderPosition>(obstacleEntity);
+	registry.emplace<Sample::Components::RenderColor>(obstacleEntity, Sample::Types::Color { 255, 0, 0, 255 });
+	registry.emplace<Sample::Components::IsObstacle>(obstacleEntity);
+}
+
 int main() {
 	Sample::Logging::Logger::LogInfo("Starting ECS Sample Project");
 	entt::registry registry;
@@ -38,22 +47,33 @@ int main() {
 		0.f // deltaTime
 	);
 
+	// * * * * *
+	// * _ _ _ *
+	// * * * _ *
+	// * _ _ _ *
+	// * _ P _ *
+	// * _ _ _ *
+	// * * * * *
+
 	{
 		const auto playerEntity = registry.create();
 		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0, 0);
-		registry.emplace<Sample::Components::ScreenPosition>(playerEntity, 0, 0);
-		registry.emplace<Sample::Components::RenderPosition>(playerEntity, 0, 0);
+		registry.emplace<Sample::Components::ScreenPosition>(playerEntity);
+		registry.emplace<Sample::Components::RenderPosition>(playerEntity);
 		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
 		registry.emplace<Sample::Components::IsPlayer>(playerEntity);
 	}
 
-	{
-		const auto obstacleEntity = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(obstacleEntity, 0, 2);
-		registry.emplace<Sample::Components::ScreenPosition>(obstacleEntity, 0, 0);
-		registry.emplace<Sample::Components::RenderPosition>(obstacleEntity, 0, 0);
-		registry.emplace<Sample::Components::RenderColor>(obstacleEntity, Sample::Types::Color { 255, 0, 0, 255 });
-		registry.emplace<Sample::Components::IsObstacle>(obstacleEntity);
+	for (auto x = -2; x < 3; x++) {
+		testAddObstacle(registry, x, -4);
+		if (x != 1) {
+			testAddObstacle(registry, x, -2);
+		}
+		testAddObstacle(registry, x, 2);
+	}
+	for (const auto y : { -3, -1, 0, 1 }) {
+		testAddObstacle(registry, -2, y);
+		testAddObstacle(registry, 2, y);
 	}
 
 	// TODO: simplify this
