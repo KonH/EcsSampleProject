@@ -11,6 +11,7 @@ namespace Sample::Systems::Raylib {
 	RenderColorSystem::RenderColorSystem(entt::registry &registry) : _registry(registry) {}
 
 	void RenderColorSystem::Update() {
+		// TODO: sorting layers
 		const auto renderSettings = _registry.ctx().get<Components::RenderSettings>();
 		const auto unitSize = renderSettings.unitSize;
 		const auto& view = _registry.view<Components::RenderPosition, Components::RenderColor>();

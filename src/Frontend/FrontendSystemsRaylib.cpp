@@ -3,6 +3,7 @@
 
 #include "Systems/Raylib/AppWindowInitSystem.h"
 #include "Systems/Raylib/InputSystem.h"
+#include "Systems/Raylib/HighlightCellByMousePositionSystem.h"
 #include "Systems/Raylib/RenderClearSystem.h"
 #include "Systems/Raylib/RenderColorSystem.h"
 #include "Systems/Raylib/RenderTextureSystem.h"
@@ -14,6 +15,7 @@ namespace Sample::Frontend {
 		systems.emplace_back(std::make_unique<Systems::Raylib::AppWindowInitSystem>(registry));
 		// All systems below depend on AppWindowInitSystem
 		systems.emplace_back(std::make_unique<Systems::Raylib::InputSystem>(registry));
+		systems.emplace_back(std::make_unique<Systems::Raylib::HighlightCellByMousePositionSystem>(registry));
 	}
 
 	void FrontendSystems::PostMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {

@@ -34,6 +34,7 @@ file(GLOB_RECURSE SRC_FILES
         ${CMAKE_SOURCE_DIR}/src/Execution/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Systems/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Types/*.h
+        ${CMAKE_SOURCE_DIR}/src/Utils/*.h
 )
 
 # Main project executable

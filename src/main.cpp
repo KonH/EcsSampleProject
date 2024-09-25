@@ -8,6 +8,7 @@
 #include "Components/Runtime.h"
 #include "Components/ScreenPosition.h"
 #include "Components/WorldPosition.h"
+#include "Components/IsHighlightCell.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
@@ -74,6 +75,15 @@ int main() {
 	for (const auto y : { -3, -1, 0, 1 }) {
 		testAddObstacle(registry, -2, y);
 		testAddObstacle(registry, 2, y);
+	}
+
+	{
+		const auto highlightCellEntity = registry.create();
+		registry.emplace<Sample::Components::WorldPosition>(highlightCellEntity, 0, 0);
+		registry.emplace<Sample::Components::ScreenPosition>(highlightCellEntity);
+		registry.emplace<Sample::Components::RenderPosition>(highlightCellEntity);
+		registry.emplace<Sample::Components::RenderColor>(highlightCellEntity, Sample::Types::Color { 120, 120, 120, 120 });
+		registry.emplace<Sample::Components::IsHighlightCell>(highlightCellEntity);
 	}
 
 	// TODO: simplify this
