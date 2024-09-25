@@ -23,22 +23,24 @@ add_subdirectory(ext/tweeny)
 
 # Source files
 file(GLOB_RECURSE SRC_FILES
-        ${CMAKE_SOURCE_DIR}/src/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Components/*.h
         ${CMAKE_SOURCE_DIR}/src/Execution/*.h
         ${CMAKE_SOURCE_DIR}/src/Execution/*.cpp
-        ${CMAKE_SOURCE_DIR}/src/Frontend/*.h
-        ${CMAKE_SOURCE_DIR}/src/Frontend/*.cpp
-        ${CMAKE_SOURCE_DIR}/src/Logger/*.h
-        ${CMAKE_SOURCE_DIR}/src/Logger/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/Logging/*.h
+        ${CMAKE_SOURCE_DIR}/src/Logging/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Execution/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Systems/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Types/*.h
         ${CMAKE_SOURCE_DIR}/src/Utils/*.h
 )
 
+file(GLOB_RECURSE FRONTEND_SRC_FILES
+        ${CMAKE_SOURCE_DIR}/src/Frontend/*.h
+        ${CMAKE_SOURCE_DIR}/src/Frontend/*.cpp
+)
+
 # Main project executable
-add_executable(EcsSampleProject ${SRC_FILES})
+add_executable(EcsSampleProject ${CMAKE_SOURCE_DIR}/src/main.cpp ${SRC_FILES} ${FRONTEND_SRC_FILES})
 target_link_libraries(EcsSampleProject EnTT tweeny)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -96,8 +98,10 @@ add_subdirectory(ext/benchmark)
 include(GoogleTest)
 
 # Tests executable
-add_executable(runTests tests/test_main.cpp)
-target_link_libraries(runTests gtest gtest_main)
+add_executable(runTests tests/test_main.cpp ${SRC_FILES})
+target_link_libraries(runTests gtest gtest_main EnTT tweeny)
+target_include_directories(runTests
+        PRIVATE ${CMAKE_SOURCE_DIR}/src)
 gtest_discover_tests(runTests)
 
 # Benchmarks executable

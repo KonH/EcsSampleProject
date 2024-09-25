@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
+#include "Systems/Movement/PlayerMovementSystemTest.h"
 
-TEST(AlwaysSuccessTest, Fails) {
-	EXPECT_EQ(1, 1);
-}
+// TODO: integrate code coverage
 
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
