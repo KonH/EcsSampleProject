@@ -2,3 +2,4 @@
 cmake-build-release/*
 build-web/*
 cmake-build-raylib-debug/*
+.idea/misc.xml
