@@ -23,6 +23,8 @@
 #include "Systems/Utility/DeltaTimeUpdateSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
 
+// TODO - add serialization
+
 void testAddObstacle(entt::registry& registry, const int x, const int y) {
 	const auto obstacleEntity = registry.create();
 	registry.emplace<Sample::Components::WorldPosition>(obstacleEntity, x, y);
