@@ -12,14 +12,10 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 endif()
 
 # Rendering options
-# TODO - remove legacy options
-option(USE_RENDER_SFML "Use SFML for rendering" OFF) # Legacy option
-option(USE_RENDER_SDL "Use SDL2 for rendering" OFF) # Legacy option
 option(USE_RENDER_RAYLIB "Use Raylib for rendering" ON)
 
 # Logging options
 option(USE_LOG_COUT "Use standard output for logging" ON)
-option(USE_LOG_SDL "Use SDL2 for logging" OFF) # Legacy option
 
 FetchContent_Declare(
         EnTT
@@ -83,73 +79,23 @@ if(USE_RENDER_RAYLIB)
     target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_RAYLIB)
 endif()
 
-if(USE_RENDER_SFML)
-    FetchContent_Declare(
-            SFML
-            GIT_REPOSITORY https://github.com/SFML/SFML.git
-            GIT_TAG 2.6.1
-    )
-    FetchContent_MakeAvailable(SFML)
-    target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics)
-    target_include_directories(EcsSampleProject PRIVATE ${SFML_SOURCE_DIR}/include)
-    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SFML)
-endif()
-
-if(USE_RENDER_SDL)
-    FetchContent_Declare(
-            SDL
-            GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-            GIT_TAG SDL2
-    )
-    FetchContent_MakeAvailable(SDL)
-    target_include_directories(EcsSampleProject PRIVATE ${SDL_SOURCE_DIR}/include)
-    target_link_libraries(EcsSampleProject SDL2)
-    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SDL)
-endif()
-
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_precompile_headers(EcsSampleProject PRIVATE src/pch.h)
 endif()
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
-if(USE_RENDER_SFML)
-    set(BUILD_SHARED_LIBS FALSE)
-    target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics)
-    target_include_directories(EcsSampleProject
-            PRIVATE ${CMAKE_SOURCE_DIR}/src
-            SYSTEM ext/SFML/include
-    )
-    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SFML)
-elseif(USE_RENDER_SDL)
-    target_include_directories(EcsSampleProject
-            PRIVATE ${CMAKE_SOURCE_DIR}/src
-            SYSTEM ext/SDL/include
-    )
-    target_link_libraries(EcsSampleProject SDL2)
-    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SDL)
-    add_custom_command(TARGET EcsSampleProject POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<TARGET_FILE_DIR:EcsSampleProject>/ext/SDL/SDL2d.dll
-            $<TARGET_FILE_DIR:EcsSampleProject>
-    )
-elseif(USE_RENDER_RAYLIB)
+if(USE_RENDER_RAYLIB)
     target_include_directories(EcsSampleProject
             PRIVATE ${CMAKE_SOURCE_DIR}/src
             SYSTEM ext/raylib/src
     )
     target_link_libraries(EcsSampleProject raylib)
     target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_RAYLIB)
-else()
-    message(FATAL_ERROR "Some render option must be enabled.")
 endif()
 
 if (USE_LOG_COUT)
     target_compile_definitions(EcsSampleProject PRIVATE USE_LOG_COUT)
-endif()
-
-if (USE_LOG_SDL)
-    target_compile_definitions(EcsSampleProject PRIVATE USE_LOG_SDL)
 endif()
 
 enable_testing()
