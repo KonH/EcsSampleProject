@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.29)
 project(EcsSampleProject)
 
+include(FetchContent)
+
 set(CMAKE_CXX_STANDARD 20)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -19,9 +21,35 @@ option(USE_RENDER_RAYLIB "Use Raylib for rendering" ON)
 option(USE_LOG_COUT "Use standard output for logging" ON)
 option(USE_LOG_SDL "Use SDL2 for logging" OFF) # Legacy option
 
-# TODO - use FetchContent
-add_subdirectory(ext/entt)
-add_subdirectory(ext/tweeny)
+# TODO - update / downgrade dependencies to stable versions
+
+FetchContent_Declare(
+        EnTT
+        GIT_REPOSITORY https://github.com/skypjack/entt.git
+        GIT_TAG 1ddc887ac43f6ba0ae5d39c14ec08ef7fcb0b435
+)
+FetchContent_MakeAvailable(EnTT)
+
+FetchContent_Declare(
+        tweeny
+        GIT_REPOSITORY https://github.com/mobius3/tweeny.git
+        GIT_TAG v3.2.0
+)
+FetchContent_MakeAvailable(tweeny)
+
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG 9ff2450a56aed4f7f124f5104d9e3088bf791ee9
+)
+FetchContent_MakeAvailable(googletest)
+
+FetchContent_Declare(
+        benchmark
+        GIT_REPOSITORY https://github.com/google/benchmark.git
+        GIT_TAG 64b5d8cd111721e4e3e0174825b04eb95309df96
+)
+FetchContent_MakeAvailable(benchmark)
 
 # Source files
 file(GLOB_RECURSE SRC_FILES
@@ -45,6 +73,42 @@ file(GLOB_RECURSE FRONTEND_SRC_FILES
 add_executable(EcsSampleProject ${CMAKE_SOURCE_DIR}/src/main.cpp ${SRC_FILES} ${FRONTEND_SRC_FILES})
 target_link_libraries(EcsSampleProject EnTT tweeny)
 
+if(USE_RENDER_RAYLIB)
+    FetchContent_Declare(
+            raylib
+            GIT_REPOSITORY https://github.com/raysan5/raylib.git
+            GIT_TAG 5.0
+    )
+    FetchContent_MakeAvailable(raylib)
+    target_include_directories(EcsSampleProject PRIVATE ${raylib_SOURCE_DIR}/src)
+    target_link_libraries(EcsSampleProject raylib)
+    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_RAYLIB)
+endif()
+
+if(USE_RENDER_SFML)
+    FetchContent_Declare(
+            SFML
+            GIT_REPOSITORY https://github.com/SFML/SFML.git
+            GIT_TAG 7083b6562e08c48c3cf3303bc69b9037c321d806
+    )
+    FetchContent_MakeAvailable(SFML)
+    target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics)
+    target_include_directories(EcsSampleProject PRIVATE ${SFML_SOURCE_DIR}/include)
+    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SFML)
+endif()
+
+if(USE_RENDER_SDL)
+    FetchContent_Declare(
+            SDL
+            GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+            GIT_TAG SDL2
+    )
+    FetchContent_MakeAvailable(SDL)
+    target_include_directories(EcsSampleProject PRIVATE ${SDL_SOURCE_DIR}/include)
+    target_link_libraries(EcsSampleProject SDL2)
+    target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SDL)
+endif()
+
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_precompile_headers(EcsSampleProject PRIVATE src/pch.h)
 endif()
@@ -53,7 +117,6 @@ file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 if(USE_RENDER_SFML)
     set(BUILD_SHARED_LIBS FALSE)
-    add_subdirectory(ext/SFML)
     target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics)
     target_include_directories(EcsSampleProject
             PRIVATE ${CMAKE_SOURCE_DIR}/src
@@ -61,7 +124,6 @@ if(USE_RENDER_SFML)
     )
     target_compile_definitions(EcsSampleProject PRIVATE USE_RENDER_SFML)
 elseif(USE_RENDER_SDL)
-    add_subdirectory(ext/SDL)
     target_include_directories(EcsSampleProject
             PRIVATE ${CMAKE_SOURCE_DIR}/src
             SYSTEM ext/SDL/include
@@ -74,7 +136,6 @@ elseif(USE_RENDER_SDL)
             $<TARGET_FILE_DIR:EcsSampleProject>
     )
 elseif(USE_RENDER_RAYLIB)
-    add_subdirectory(ext/raylib)
     target_include_directories(EcsSampleProject
             PRIVATE ${CMAKE_SOURCE_DIR}/src
             SYSTEM ext/raylib/src
@@ -94,8 +155,6 @@ if (USE_LOG_SDL)
 endif()
 
 enable_testing()
-add_subdirectory(ext/googletest)
-add_subdirectory(ext/benchmark)
 
 include(GoogleTest)
 
