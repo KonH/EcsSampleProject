@@ -25,7 +25,7 @@ jobs:
           pip3 install codechecker
 
       - name: Configure CMake
-        run: cmake -S . -B build
+        run: cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
       - name: Build with CMake
         run: cmake --build build --config Release
