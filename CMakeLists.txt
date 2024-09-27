@@ -21,12 +21,10 @@ option(USE_RENDER_RAYLIB "Use Raylib for rendering" ON)
 option(USE_LOG_COUT "Use standard output for logging" ON)
 option(USE_LOG_SDL "Use SDL2 for logging" OFF) # Legacy option
 
-# TODO - update / downgrade dependencies to stable versions
-
 FetchContent_Declare(
         EnTT
         GIT_REPOSITORY https://github.com/skypjack/entt.git
-        GIT_TAG 1ddc887ac43f6ba0ae5d39c14ec08ef7fcb0b435
+        GIT_TAG v3.13.2
 )
 FetchContent_MakeAvailable(EnTT)
 
@@ -40,14 +38,14 @@ FetchContent_MakeAvailable(tweeny)
 FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG 9ff2450a56aed4f7f124f5104d9e3088bf791ee9
+        GIT_TAG v1.15.2
 )
 FetchContent_MakeAvailable(googletest)
 
 FetchContent_Declare(
         benchmark
         GIT_REPOSITORY https://github.com/google/benchmark.git
-        GIT_TAG 64b5d8cd111721e4e3e0174825b04eb95309df96
+        GIT_TAG v1.9.0
 )
 FetchContent_MakeAvailable(benchmark)
 
@@ -89,7 +87,7 @@ if(USE_RENDER_SFML)
     FetchContent_Declare(
             SFML
             GIT_REPOSITORY https://github.com/SFML/SFML.git
-            GIT_TAG 7083b6562e08c48c3cf3303bc69b9037c321d806
+            GIT_TAG 2.6.1
     )
     FetchContent_MakeAvailable(SFML)
     target_link_libraries(EcsSampleProject sfml-system sfml-window sfml-graphics)
