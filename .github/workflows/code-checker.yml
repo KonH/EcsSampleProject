@@ -19,24 +19,19 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ libsfml-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libogg-dev libvorbis-dev libflac-dev libxinerama-dev python3-pip
 
-      - name: Install CodeChecker
-        run: |
-          pip3 install --upgrade pip
-          pip3 install codechecker
-
       - name: Configure CMake
         run: cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
       - name: Build with CMake
         run: cmake --build build --config Release
 
-      - name: Run CodeChecker analyze
-        run: |
-          CodeChecker log -b "cmake --build build --config Release" -o compile_commands.json
-          CodeChecker analyze compile_commands.json -o codechecker_reports
+      - uses: whisperity/codechecker-analysis-action@v1
+        id: codechecker
+        with:
+          logfile: ${{ github.workspace }}/build/compile_commands.json
 
       - name: Upload CodeChecker reports
         uses: actions/upload-artifact@v3
         with:
-          name: codechecker-reports
-          path: codechecker_reports
+          name: "CodeChecker Bug Reports"
+          path: ${{ steps.codechecker.outputs.result-html-dir }}
