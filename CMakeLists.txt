@@ -10,6 +10,7 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 endif()
 
 # Rendering options
+# TODO - remove legacy options
 option(USE_RENDER_SFML "Use SFML for rendering" OFF) # Legacy option
 option(USE_RENDER_SDL "Use SDL2 for rendering" OFF) # Legacy option
 option(USE_RENDER_RAYLIB "Use Raylib for rendering" ON)
@@ -18,6 +19,7 @@ option(USE_RENDER_RAYLIB "Use Raylib for rendering" ON)
 option(USE_LOG_COUT "Use standard output for logging" ON)
 option(USE_LOG_SDL "Use SDL2 for logging" OFF) # Legacy option
 
+# TODO - use FetchContent
 add_subdirectory(ext/entt)
 add_subdirectory(ext/tweeny)
 

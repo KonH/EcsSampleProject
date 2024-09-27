@@ -1,5 +1,7 @@
 #include "MovementAnimationSystem.h"
 
+#include <string>
+
 #include <tweeny.h>
 
 #include "Components/ActionFinish.h"
