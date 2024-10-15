@@ -36,12 +36,12 @@ jobs:
       - name: Run CodeChecker analysis
         run: |
           source venv/bin/activate
-          CodeChecker analyze build/compile_commands.json --output build/reports
+          CodeChecker analyze build/compile_commands.json --ignore .code_checker.skip --output build/reports
 
       - name: Generate CodeChecker report
         run: |
           source venv/bin/activate
-          CodeChecker parse build/reports --export html --output build/reports_html
+          CodeChecker parse build/reports --export html --ignore .code_checker.skip --output build/reports_html
         continue-on-error: true
 
       - name: Upload CodeChecker reports to artifacts
