@@ -21,7 +21,7 @@ jobs:
 
       - name: Set up Python virtual environment
         run: |
-          python3 -m .venv .venv
+          python3 -m venv .venv
           source .venv/bin/activate
           pip install --upgrade pip
           pip install setuptools  # Install setuptools to get distutils
