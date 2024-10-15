@@ -23,6 +23,8 @@ jobs:
         run: |
           python3 -m venv venv
           source venv/bin/activate
+          pip install --upgrade pip
+          pip install codechecker
 
       - name: Configure CMake
         run: cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -30,13 +32,18 @@ jobs:
       - name: Build with CMake
         run: cmake --build build --config Release
 
-      - uses: whisperity/codechecker-analysis-action@v1
-        id: codechecker
-        with:
-          logfile: ${{ github.workspace }}/build/compile_commands.json
+      - name: Run CodeChecker analysis
+        run: |
+          source venv/bin/activate
+          CodeChecker analyze build/compile_commands.json --output build/reports
+
+      - name: Generate CodeChecker report
+        run: |
+          source venv/bin/activate
+          CodeChecker parse build/reports --export html --output build/reports_html
 
       - name: Upload CodeChecker reports
         uses: actions/upload-artifact@v3
         with:
           name: "CodeChecker Bug Reports"
-          path: ${{ steps.codechecker.outputs.result-html-dir }}
+          path: build/reports_html
