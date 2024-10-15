@@ -27,6 +27,7 @@
 #include "Systems/Camera/CameraMovementIntentSystem.h"
 #include "Systems/Camera/CameraMovementSystem.h"
 
+// TODO - fix code checker skip file usage
 // TODO - add serialization
 
 void testAddObstacle(entt::registry& registry, const int x, const int y) {
