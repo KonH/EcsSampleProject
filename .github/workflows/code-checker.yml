@@ -42,8 +42,16 @@ jobs:
           source venv/bin/activate
           CodeChecker parse build/reports --export html --output build/reports_html
 
-      - name: Upload CodeChecker reports
+      - name: Upload CodeChecker reports to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: "CodeChecker Bug Reports"
           path: build/reports_html
+
+      - name: Upload CodeChecker reports to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/reports_html
+          force_orphan: true
