@@ -8,6 +8,7 @@ namespace Sample::Systems::Camera {
 
 	void CameraZoomSystem::Update() {
 		// TODO: make configurable
+		// TODO: add limits
 		constexpr float zoomFactor = 1.1f;
 
 		auto& renderSettings = _registry.ctx().get<Components::RenderSettings>();

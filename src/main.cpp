@@ -1,5 +1,6 @@
 #include <entt/entt.hpp>
 
+#include "Types/Vector2Float.h"
 #include "Components/IsObstacle.h"
 #include "Components/IsPlayer.h"
 #include "Components/RenderColor.h"
@@ -23,6 +24,8 @@
 #include "Systems/Utility/DeltaTimeUpdateSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
 #include "Systems/Camera/CameraZoomSystem.h"
+#include "Systems/Camera/CameraMovementIntentSystem.h"
+#include "Systems/Camera/CameraMovementSystem.h"
 
 // TODO - add serialization
 
@@ -44,7 +47,8 @@ int main() {
 		"ECS Sample Project", // windowTitle
 		static_cast<unsigned int>(800), // screenWidth
 		static_cast<unsigned int>(600), // screenHeight
-		50.f // unitSize
+		50.f, // unitSize
+		Sample::Types::Vector2Float { 0.0f, 0.0f } // cameraCenter
 	);
 	ctx.emplace<Sample::Components::Runtime>(
 		true, // isRunning
@@ -100,6 +104,8 @@ int main() {
 	systems.push_back(std::make_unique<Sample::Systems::Animation::MovementAnimationSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraZoomSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraMovementIntentSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraMovementSystem>(registry));
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
 	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressCleanUpSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));

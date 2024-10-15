@@ -7,6 +7,7 @@
 #include "Components/ControlPress.h"
 #include "Components/ControlDown.h"
 #include "Components/MouseScroll.h"
+#include "Components/MouseMove.h"
 
 namespace Sample::Systems::Raylib {
 	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {}
@@ -28,6 +29,17 @@ namespace Sample::Systems::Raylib {
 		const auto mouseWheelMove = GetMouseWheelMove();
 		if (std::abs(mouseWheelMove) > 0.01f) {
 			_registry.emplace<Components::MouseScroll>(_registry.create(), mouseWheelMove);
+		}
+		const auto mouseDelta = GetMouseDelta();
+		if ((std::abs(mouseDelta.x) > 0.01f) || (std::abs(mouseDelta.y) > 0.01f)) {
+			const Types::Vector2Float mouseDeltaVec = { mouseDelta.x, mouseDelta.y };
+			_registry.emplace<Components::MouseMove>(_registry.create(), mouseDeltaVec);
+		}
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			RaiseControlPress(Types::ControlType::LeftMouseButton);
+		}
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+			RaiseControlDown(Types::ControlType::LeftMouseButton);
 		}
 	}
 

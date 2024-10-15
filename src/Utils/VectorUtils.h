@@ -8,8 +8,8 @@ namespace Sample::VectorUtils {
 	inline Types::Vector2Float GetScreenCenter(const Components::RenderSettings& renderSettings) {
 		const auto unitSize = renderSettings.unitSize;
 		return {
-			static_cast<float>(renderSettings.screenWidth) / 2.f - unitSize / 2.f,
-			static_cast<float>(renderSettings.screenHeight) / 2.f - unitSize / 2.f
+			renderSettings.cameraCenter.x + static_cast<float>(renderSettings.screenWidth) / 2.f - unitSize / 2.f,
+			renderSettings.cameraCenter.y + static_cast<float>(renderSettings.screenHeight) / 2.f - unitSize / 2.f
 		};
 	}
 
