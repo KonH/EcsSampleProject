@@ -6,6 +6,7 @@
 #include "Components/Runtime.h"
 #include "Components/ControlPress.h"
 #include "Components/ControlDown.h"
+#include "Components/MouseScroll.h"
 
 namespace Sample::Systems::Raylib {
 	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {}
@@ -23,6 +24,10 @@ namespace Sample::Systems::Raylib {
 			if (IsKeyDown(key)) {
 				OnKeyDown(key);
 			}
+		}
+		const auto mouseWheelMove = GetMouseWheelMove();
+		if (std::abs(mouseWheelMove) > 0.01f) {
+			_registry.emplace<Components::MouseScroll>(_registry.create(), mouseWheelMove);
 		}
 	}
 

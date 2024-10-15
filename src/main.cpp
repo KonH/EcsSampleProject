@@ -22,6 +22,7 @@
 #include "Systems/Utility/ActionProgressUpdateSystem.h"
 #include "Systems/Utility/DeltaTimeUpdateSystem.h"
 #include "Systems/Utility/EventCleanUpSystem.h"
+#include "Systems/Camera/CameraZoomSystem.h"
 
 // TODO - add serialization
 
@@ -98,6 +99,7 @@ int main() {
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Animation::MovementAnimationSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraZoomSystem>(registry));
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
 	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressCleanUpSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));
