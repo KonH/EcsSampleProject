@@ -27,7 +27,7 @@
 
 void testAddObstacle(entt::registry& registry, const int x, const int y) {
 	const auto obstacleEntity = registry.create();
-	registry.emplace<Sample::Components::WorldPosition>(obstacleEntity, x, y);
+	registry.emplace<Sample::Components::WorldPosition>(obstacleEntity, static_cast<float>(x), static_cast<float>(y));
 	registry.emplace<Sample::Components::ScreenPosition>(obstacleEntity);
 	registry.emplace<Sample::Components::RenderPosition>(obstacleEntity);
 	registry.emplace<Sample::Components::RenderColor>(obstacleEntity, Sample::Types::Color { 255, 0, 0, 255 });
@@ -60,7 +60,7 @@ int main() {
 
 	{
 		const auto playerEntity = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0, 0);
+		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0.0f, 0.0f);
 		registry.emplace<Sample::Components::ScreenPosition>(playerEntity);
 		registry.emplace<Sample::Components::RenderPosition>(playerEntity);
 		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
@@ -81,7 +81,7 @@ int main() {
 
 	{
 		const auto highlightCellEntity = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(highlightCellEntity, 0, 0);
+		registry.emplace<Sample::Components::WorldPosition>(highlightCellEntity, 0.0f, 0.0f);
 		registry.emplace<Sample::Components::ScreenPosition>(highlightCellEntity);
 		registry.emplace<Sample::Components::RenderPosition>(highlightCellEntity);
 		registry.emplace<Sample::Components::RenderColor>(highlightCellEntity, Sample::Types::Color { 120, 120, 120, 120 });

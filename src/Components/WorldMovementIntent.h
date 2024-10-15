@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Types/Vector2Int.h"
+#include "Types/Vector2Float.h"
 
 namespace Sample::Components {
 	struct WorldMovementIntent {
-		Types::Vector2Int wantedChange;
+		Types::Vector2Float wantedChange;
 	};
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Components/RenderSettings.h"
+#include "Types/Vector2Int.h"
 #include "Types/Vector2Float.h"
 
 namespace Sample::VectorUtils {
@@ -12,7 +13,7 @@ namespace Sample::VectorUtils {
 		};
 	}
 
-	inline Types::Vector2Int ToScreenPosition(const Components::RenderSettings& renderSettings, const Types::Vector2Float& center, const Types::Vector2Int& worldPosition) {
+	inline Types::Vector2Int ToScreenPosition(const Components::RenderSettings& renderSettings, const Types::Vector2Float& center, const Types::Vector2Float& worldPosition) {
 		const auto unitSize = renderSettings.unitSize;
 		return {
 			static_cast<int>(center.x + static_cast<float>(worldPosition.x) * unitSize),
@@ -20,11 +21,11 @@ namespace Sample::VectorUtils {
 		};
 	}
 
-	inline Types::Vector2Int ToWorldPosition(const Components::RenderSettings& renderSettings, const Types::Vector2Float& center, const Types::Vector2Float& screenPosition) {
+	inline Types::Vector2Float ToWorldPosition(const Components::RenderSettings& renderSettings, const Types::Vector2Float& center, const Types::Vector2Float& screenPosition) {
 		const auto unitSize = renderSettings.unitSize;
 		return {
-			static_cast<int>(std::floor((screenPosition.x - center.x) / unitSize)),
-			static_cast<int>(std::floor((screenPosition.y - center.y) / unitSize))
+			(screenPosition.x - center.x) / unitSize,
+			(screenPosition.y - center.y) / unitSize
 		};
 	}
 }

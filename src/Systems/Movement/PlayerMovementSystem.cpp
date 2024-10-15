@@ -40,6 +40,6 @@ namespace Sample::Systems::Movement {
 	}
 
 	void PlayerMovementSystem::ApplyMovement(const entt::entity entity, const int x, const int y) const {
-		_registry.emplace<Components::WorldMovementIntent>(entity, x, y);
+		_registry.emplace<Components::WorldMovementIntent>(entity, static_cast<float>(x), static_cast<float>(y));
 	}
 }

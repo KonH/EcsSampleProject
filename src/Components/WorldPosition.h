@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Types/Vector2Int.h"
+#include "Types/Vector2Float.h"
 
 namespace Sample::Components {
 	struct WorldPosition {
-		Types::Vector2Int position;
+		Types::Vector2Float position;
 	};
 }
