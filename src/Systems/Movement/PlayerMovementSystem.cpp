@@ -14,6 +14,10 @@ namespace Sample::Systems::Movement {
 		const auto& playerView = _registry.view<Components::IsPlayer, Components::WorldPosition>(entt::exclude<Components::ActionProgress>);
 		for (auto [controlEntity, control] : controlView.each()) {
 			for (auto [playerEntity, _] : playerView.each()) {
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wswitch-enum"
+#endif
 				switch (control.control) {
 					case Types::ControlType::Right:
 						ApplyMovement(playerEntity, 1, 0);
@@ -35,6 +39,9 @@ namespace Sample::Systems::Movement {
 						// Not related
 						break;
 				}
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 			}
 		}
 	}

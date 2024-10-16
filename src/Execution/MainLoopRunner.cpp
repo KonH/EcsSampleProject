@@ -7,7 +7,7 @@
 #endif
 
 namespace Sample::Execution {
-	void MainLoop(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
+	void MainLoop([[maybe_unused]] entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 		for (const auto& system : systems) {
 			system->Update();
 		}

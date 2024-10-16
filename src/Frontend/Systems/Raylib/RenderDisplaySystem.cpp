@@ -4,7 +4,7 @@
 #include <raylib.h>
 
 namespace Sample::Systems::Raylib {
-	RenderDisplaySystem::RenderDisplaySystem(entt::registry &registry) : _registry(registry) {}
+	RenderDisplaySystem::RenderDisplaySystem(entt::registry&) {}
 
 	void RenderDisplaySystem::Update() {
 		EndDrawing();

@@ -10,9 +10,6 @@ namespace Sample::Systems::Raylib {
 		explicit RenderClearSystem(entt::registry& registry);
 
 		void Update() override;
-
-	private:
-		entt::registry& _registry;
 	};
 }
 #endif

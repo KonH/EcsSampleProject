@@ -4,7 +4,7 @@
 #include <raylib.h>
 
 namespace Sample::Systems::Raylib {
-	RenderClearSystem::RenderClearSystem(entt::registry &registry) : _registry(registry) {}
+	RenderClearSystem::RenderClearSystem(entt::registry&) {}
 
 	void RenderClearSystem::Update() {
 		BeginDrawing();
