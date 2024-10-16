@@ -5,3 +5,5 @@ cmake-build-raylib-debug/*
 .idea/misc.xml
 .vs
 out/*
+.venv/*
+build/*
