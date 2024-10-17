@@ -7,6 +7,7 @@
 #include "Systems/Raylib/RenderClearSystem.h"
 #include "Systems/Raylib/RenderColorSystem.h"
 #include "Systems/Raylib/RenderTextureSystem.h"
+#include "Systems/Raylib/RenderLineSystem.h"
 #include "Systems/Raylib/RenderTextSystem.h"
 #include "Systems/Raylib/RenderDisplaySystem.h"
 
@@ -22,6 +23,7 @@ namespace Sample::Frontend {
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderClearSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderColorSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderTextureSystem>(registry));
+		systems.emplace_back(std::make_unique<Systems::Raylib::RenderLineSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderTextSystem>(registry));
 		systems.emplace_back(std::make_unique<Systems::Raylib::RenderDisplaySystem>(registry));
 	}

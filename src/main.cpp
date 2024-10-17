@@ -1,24 +1,26 @@
 #include <entt/entt.hpp>
 
+#include "Types/Color.h"
 #include "Types/Vector2Float.h"
-#include "Components/IsObstacle.h"
-#include "Components/IsPlayer.h"
 #include "Components/RenderColor.h"
+#include "Components/RenderLine.h"
 #include "Components/RenderPosition.h"
+#include "Components/RenderPositionSet.h"
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
 #include "Components/ScreenPosition.h"
+#include "Components/ScreenPositionSet.h"
 #include "Components/WorldPosition.h"
-#include "Components/IsHighlightCell.h"
+#include "Components/WorldPositionSet.h"
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
 #include "Systems/Animation/MovementAnimationSystem.h"
-#include "Systems/Movement/PlayerMovementSystem.h"
-#include <Systems/Movement/ObstacleFilterSystem.h>
 #include "Systems/Movement/WorldMovementSystem.h"
-#include "Systems/Presentation/ScreenToRenderPositionSystem.h"
 #include "Systems/Presentation/WorldToScreenPositionSystem.h"
+#include "Systems/Presentation/WorldToScreenPositionSetSystem.h"
+#include "Systems/Presentation/ScreenToRenderPositionSystem.h"
+#include "Systems/Presentation/ScreenToRenderPositionSetSystem.h"
 #include "Systems/Utility/ActionProgressCleanUpSystem.h"
 #include "Systems/Utility/ActionProgressUpdateSystem.h"
 #include "Systems/Utility/DeltaTimeUpdateSystem.h"
@@ -29,15 +31,6 @@
 
 // TODO - add serialization
 
-void testAddObstacle(entt::registry& registry, const int x, const int y) {
-	const auto obstacleEntity = registry.create();
-	registry.emplace<Sample::Components::WorldPosition>(obstacleEntity, static_cast<float>(x), static_cast<float>(y));
-	registry.emplace<Sample::Components::ScreenPosition>(obstacleEntity);
-	registry.emplace<Sample::Components::RenderPosition>(obstacleEntity);
-	registry.emplace<Sample::Components::RenderColor>(obstacleEntity, Sample::Types::Color { 255, 0, 0, 255 });
-	registry.emplace<Sample::Components::IsObstacle>(obstacleEntity);
-}
-
 int main() {
 	Sample::Logging::Logger::LogInfo("Starting ECS Sample Project");
 	entt::registry registry;
@@ -45,8 +38,8 @@ int main() {
 	auto& ctx = registry.ctx();
 	ctx.emplace<Sample::Components::RenderSettings>(
 		"ECS Sample Project", // windowTitle
-		static_cast<unsigned int>(800), // screenWidth
-		static_cast<unsigned int>(600), // screenHeight
+		static_cast<unsigned int>(1200), // screenWidth
+		static_cast<unsigned int>(800), // screenHeight
 		50.f, // unitSize
 		Sample::Types::Vector2Float { 0.0f, 0.0f } // cameraCenter
 	);
@@ -55,54 +48,50 @@ int main() {
 		0.f // deltaTime
 	);
 
-	// * * * * *
-	// * _ _ _ *
-	// * * * _ *
-	// * _ _ _ *
-	// * _ P _ *
-	// * _ _ _ *
-	// * * * * *
-
 	{
-		const auto playerEntity = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(playerEntity, 0.0f, 0.0f);
-		registry.emplace<Sample::Components::ScreenPosition>(playerEntity);
-		registry.emplace<Sample::Components::RenderPosition>(playerEntity);
-		registry.emplace<Sample::Components::RenderColor>(playerEntity, Sample::Types::Color { 0, 255, 0, 255 });
-		registry.emplace<Sample::Components::IsPlayer>(playerEntity);
-	}
-
-	for (auto x = -2; x < 3; x++) {
-		testAddObstacle(registry, x, -4);
-		if (x != 1) {
-			testAddObstacle(registry, x, -2);
-		}
-		testAddObstacle(registry, x, 2);
-	}
-	for (const auto y : { -3, -1, 0, 1 }) {
-		testAddObstacle(registry, -2, y);
-		testAddObstacle(registry, 2, y);
+		const auto playerProvince = registry.create();
+		const std::vector<Sample::Types::Vector2Float> worldPositions = {
+			{ 0.0, 0.0 }, { 1.0, 0.5 }, { 2.0, 0.0 },
+			{ 2.0, -2.0 }, { 0.0, -2.0 },
+			{ 0.0, 0.0 },
+		};
+		registry.emplace<Sample::Components::WorldPositionSet>(playerProvince, worldPositions);
+		registry.emplace<Sample::Components::ScreenPositionSet>(playerProvince, std::vector<Sample::Types::Vector2Int>());
+		registry.emplace<Sample::Components::RenderPositionSet>(playerProvince, std::vector<Sample::Types::Vector2Int>());
+		registry.emplace<Sample::Components::RenderLine>(playerProvince, Sample::Types::Color { 0, 255, 0, 255 });
 	}
 
 	{
-		const auto highlightCellEntity = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(highlightCellEntity, 0.0f, 0.0f);
-		registry.emplace<Sample::Components::ScreenPosition>(highlightCellEntity);
-		registry.emplace<Sample::Components::RenderPosition>(highlightCellEntity);
-		registry.emplace<Sample::Components::RenderColor>(highlightCellEntity, Sample::Types::Color { 120, 120, 120, 120 });
-		registry.emplace<Sample::Components::IsHighlightCell>(highlightCellEntity);
+		const auto playerUnit = registry.create();
+		registry.emplace<Sample::Components::WorldPosition>(playerUnit, 1.0f, -1.0f);
+		registry.emplace<Sample::Components::ScreenPosition>(playerUnit);
+		registry.emplace<Sample::Components::RenderPosition>(playerUnit);
+		registry.emplace<Sample::Components::RenderColor>(playerUnit, Sample::Types::Color { 0, 255, 0, 255 });
+	}
+
+	{
+		const auto otherProvince = registry.create();
+		const std::vector<Sample::Types::Vector2Float> worldPositions = {
+			{ 2.5, 0.0 }, { 4.5, 0.0 },
+			{ 4.5, -2.0 }, { 2.5, -2.0 },
+			{ 3.0, -1.0 }, { 2.5, 0.0 },
+		};
+		registry.emplace<Sample::Components::WorldPositionSet>(otherProvince, worldPositions);
+		registry.emplace<Sample::Components::ScreenPositionSet>(otherProvince, std::vector<Sample::Types::Vector2Int>());
+		registry.emplace<Sample::Components::RenderPositionSet>(otherProvince, std::vector<Sample::Types::Vector2Int>());
+		registry.emplace<Sample::Components::RenderLine>(otherProvince, Sample::Types::Color { 255, 0, 0, 255 });
 	}
 
 	// TODO: simplify this
 	systems.push_back(std::make_unique<Sample::Systems::Utility::DeltaTimeUpdateSystem>(registry));
 	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
 	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressUpdateSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Movement::PlayerMovementSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Movement::ObstacleFilterSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Movement::WorldMovementSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSetSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Animation::MovementAnimationSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSystem>(registry));
+	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSetSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraZoomSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraMovementIntentSystem>(registry));
 	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraMovementSystem>(registry));
