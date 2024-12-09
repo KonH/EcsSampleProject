@@ -5,6 +5,7 @@
 #include "Components/RenderColor.h"
 #include "Components/RenderLine.h"
 #include "Components/RenderPosition.h"
+#include "Components/RenderScale.h"
 #include "Components/RenderPositionSet.h"
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
@@ -57,11 +58,12 @@ int main() {
 	}
 
 	{
-		const auto playerUnit = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(playerUnit, 0.0f, 1.0f);
-		registry.emplace<Sample::Components::ScreenPosition>(playerUnit);
-		registry.emplace<Sample::Components::RenderPosition>(playerUnit);
-		registry.emplace<Sample::Components::RenderColor>(playerUnit, Sample::Types::Color { 0, 255, 0, 255 });
+		const auto playerArmy = registry.create();
+		registry.emplace<Sample::Components::WorldPosition>(playerArmy, 0.0f, 0.0f);
+		registry.emplace<Sample::Components::ScreenPosition>(playerArmy);
+		registry.emplace<Sample::Components::RenderPosition>(playerArmy);
+		registry.emplace<Sample::Components::RenderColor>(playerArmy, Sample::Types::Color { 0, 255, 0, 255 });
+		registry.emplace<Sample::Components::RenderScale>(playerArmy, 0.5f);
 	}
 
 	{
