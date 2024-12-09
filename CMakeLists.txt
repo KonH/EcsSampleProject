@@ -45,6 +45,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(benchmark)
 
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG 11.0.2
+)
+FetchContent_MakeAvailable(fmt)
+
 # Source files
 file(GLOB_RECURSE SRC_FILES
         ${CMAKE_SOURCE_DIR}/src/Components/*.h
@@ -65,7 +72,7 @@ file(GLOB_RECURSE FRONTEND_SRC_FILES
 
 # Main project executable
 add_executable(EcsSampleProject ${CMAKE_SOURCE_DIR}/src/main.cpp ${SRC_FILES} ${FRONTEND_SRC_FILES})
-target_link_libraries(EcsSampleProject EnTT tweeny)
+target_link_libraries(EcsSampleProject EnTT tweeny fmt)
 
 if(USE_RENDER_RAYLIB)
     FetchContent_Declare(
@@ -104,11 +111,11 @@ include(GoogleTest)
 
 # Tests executable
 add_executable(runTests tests/test_main.cpp ${SRC_FILES})
-target_link_libraries(runTests gtest gtest_main EnTT tweeny)
+target_link_libraries(runTests gtest gtest_main EnTT tweeny fmt)
 target_include_directories(runTests
         PRIVATE ${CMAKE_SOURCE_DIR}/src)
 gtest_discover_tests(runTests)
 
 # Benchmarks executable
 add_executable(runBenchmarks benchmarks/benchmark_main.cpp)
-target_link_libraries(runBenchmarks benchmark EnTT)
+target_link_libraries(runBenchmarks benchmark EnTT fmt)

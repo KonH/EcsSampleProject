@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <format>
+#include <fmt/core.h>
 
 namespace Sample::Logging {
 	class Logger {
@@ -28,12 +28,8 @@ namespace Sample::Logging {
 		static void LogErrorImpl(const std::string& message);
 
 		template<typename... Args>
-		static std::string formatMessage(const std::string &format, Args &&...args) {
-			try {
-				return std::vformat(format, std::make_format_args(args...));
-			} catch (const std::format_error &e) {
-				return std::string("Formatting error: ") + e.what();
-			}
+		static std::string formatMessage(const std::string& format, Args&&... args) {
+			return fmt::format(fmt::runtime(format), std::forward<Args>(args)...);
 		}
 	};
 }
