@@ -6,6 +6,7 @@
 #include "Components/RenderLine.h"
 #include "Components/RenderPosition.h"
 #include "Components/RenderScale.h"
+#include "Components/RenderLayer.h"
 #include "Components/RenderPositionSet.h"
 #include "Components/RenderSettings.h"
 #include "Components/Runtime.h"
@@ -49,12 +50,16 @@ int main() {
 		0.f // deltaTime
 	);
 
+	const auto locationRenderLayer = 0;
+	const auto unitRenderLayer = 1;
+
 	{
 		const auto playerProvince = registry.create();
 		registry.emplace<Sample::Components::WorldPosition>(playerProvince, 0.0f, 0.0f);
 		registry.emplace<Sample::Components::ScreenPosition>(playerProvince);
 		registry.emplace<Sample::Components::RenderPosition>(playerProvince);
 		registry.emplace<Sample::Components::RenderColor>(playerProvince, Sample::Types::Color { 0, 0, 255, 255 });
+		registry.emplace<Sample::Components::RenderLayer>(playerProvince, locationRenderLayer);
 	}
 
 	{
@@ -64,6 +69,7 @@ int main() {
 		registry.emplace<Sample::Components::RenderPosition>(playerArmy);
 		registry.emplace<Sample::Components::RenderColor>(playerArmy, Sample::Types::Color { 0, 255, 0, 255 });
 		registry.emplace<Sample::Components::RenderScale>(playerArmy, 0.5f);
+		registry.emplace<Sample::Components::RenderLayer>(playerArmy, unitRenderLayer);
 	}
 
 	{
@@ -72,6 +78,7 @@ int main() {
 		registry.emplace<Sample::Components::ScreenPosition>(otherProvince);
 		registry.emplace<Sample::Components::RenderPosition>(otherProvince);
 		registry.emplace<Sample::Components::RenderColor>(otherProvince, Sample::Types::Color { 255, 0, 0, 255 });
+		registry.emplace<Sample::Components::RenderLayer>(otherProvince, locationRenderLayer);
 	}
 
 	// TODO: simplify this
