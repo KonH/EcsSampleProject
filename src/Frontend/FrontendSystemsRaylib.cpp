@@ -13,19 +13,19 @@
 
 namespace Sample::Frontend {
 	void FrontendSystems::PreMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
-		systems.emplace_back(std::make_unique<Systems::Raylib::AppWindowInitSystem>(registry));
+		Add<Systems::Raylib::AppWindowInitSystem>(registry, systems);
 		// All systems below depend on AppWindowInitSystem
-		systems.emplace_back(std::make_unique<Systems::Raylib::InputSystem>(registry));
-		systems.emplace_back(std::make_unique<Systems::Raylib::HighlightCellByMousePositionSystem>(registry));
+		Add<Systems::Raylib::InputSystem>(registry, systems);
+		Add<Systems::Raylib::HighlightCellByMousePositionSystem>(registry, systems);
 	}
 
 	void FrontendSystems::PostMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
-		systems.emplace_back(std::make_unique<Systems::Raylib::RenderClearSystem>(registry));
-		systems.emplace_back(std::make_unique<Systems::Raylib::RenderColorSystem>(registry));
-		systems.emplace_back(std::make_unique<Systems::Raylib::RenderTextureSystem>(registry));
-		systems.emplace_back(std::make_unique<Systems::Raylib::RenderLineSystem>(registry));
-		systems.emplace_back(std::make_unique<Systems::Raylib::RenderTextSystem>(registry));
-		systems.emplace_back(std::make_unique<Systems::Raylib::RenderDisplaySystem>(registry));
+		Add<Systems::Raylib::RenderClearSystem>(registry, systems);
+		Add<Systems::Raylib::RenderColorSystem>(registry, systems);
+		Add<Systems::Raylib::RenderTextureSystem>(registry, systems);
+		Add<Systems::Raylib::RenderLineSystem>(registry, systems);
+		Add<Systems::Raylib::RenderTextSystem>(registry, systems);
+		Add<Systems::Raylib::RenderDisplaySystem>(registry, systems);
 	}
 }
 #endif

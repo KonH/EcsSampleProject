@@ -17,19 +17,8 @@
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
-#include "Systems/Animation/MovementAnimationSystem.h"
-#include "Systems/Movement/WorldMovementSystem.h"
-#include "Systems/Presentation/WorldToScreenPositionSystem.h"
-#include "Systems/Presentation/WorldToScreenPositionSetSystem.h"
-#include "Systems/Presentation/ScreenToRenderPositionSystem.h"
-#include "Systems/Presentation/ScreenToRenderPositionSetSystem.h"
-#include "Systems/Utility/ActionProgressCleanUpSystem.h"
-#include "Systems/Utility/ActionProgressUpdateSystem.h"
-#include "Systems/Utility/DeltaTimeUpdateSystem.h"
-#include "Systems/Utility/EventCleanUpSystem.h"
-#include "Systems/Camera/CameraZoomSystem.h"
-#include "Systems/Camera/CameraMovementIntentSystem.h"
-#include "Systems/Camera/CameraMovementSystem.h"
+
+#include "Systems/SystemsBuilder.h"
 
 // TODO - add serialization
 
@@ -81,22 +70,11 @@ int main() {
 		registry.emplace<Sample::Components::RenderLayer>(otherProvince, locationRenderLayer);
 	}
 
-	// TODO: simplify this
-	systems.push_back(std::make_unique<Sample::Systems::Utility::DeltaTimeUpdateSystem>(registry));
+	Sample::Systems::SystemsBuilder::PreMainInitialize(registry, systems);
 	Sample::Frontend::FrontendSystems::PreMainInitialize(registry, systems);
-	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressUpdateSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Movement::WorldMovementSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Presentation::WorldToScreenPositionSetSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Animation::MovementAnimationSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Presentation::ScreenToRenderPositionSetSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraZoomSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraMovementIntentSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Camera::CameraMovementSystem>(registry));
+	Sample::Systems::SystemsBuilder::MainInitialize(registry, systems);
 	Sample::Frontend::FrontendSystems::PostMainInitialize(registry, systems);
-	systems.push_back(std::make_unique<Sample::Systems::Utility::ActionProgressCleanUpSystem>(registry));
-	systems.push_back(std::make_unique<Sample::Systems::Utility::EventCleanUpSystem>(registry));
+	Sample::Systems::SystemsBuilder::PostMainInitialize(registry, systems);
 
 	for (const auto& system : systems) {
 		system->Init();
