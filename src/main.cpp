@@ -50,20 +50,15 @@ int main() {
 
 	{
 		const auto playerProvince = registry.create();
-		const std::vector<Sample::Types::Vector2Float> worldPositions = {
-			{ 0.0, 0.0 }, { 1.0, 0.5 }, { 2.0, 0.0 },
-			{ 2.0, -2.0 }, { 0.0, -2.0 },
-			{ 0.0, 0.0 },
-		};
-		registry.emplace<Sample::Components::WorldPositionSet>(playerProvince, worldPositions);
-		registry.emplace<Sample::Components::ScreenPositionSet>(playerProvince, std::vector<Sample::Types::Vector2Int>());
-		registry.emplace<Sample::Components::RenderPositionSet>(playerProvince, std::vector<Sample::Types::Vector2Int>());
-		registry.emplace<Sample::Components::RenderLine>(playerProvince, Sample::Types::Color { 0, 255, 0, 255 });
+		registry.emplace<Sample::Components::WorldPosition>(playerProvince, 0.0f, 0.0f);
+		registry.emplace<Sample::Components::ScreenPosition>(playerProvince);
+		registry.emplace<Sample::Components::RenderPosition>(playerProvince);
+		registry.emplace<Sample::Components::RenderColor>(playerProvince, Sample::Types::Color { 0, 0, 255, 255 });
 	}
 
 	{
 		const auto playerUnit = registry.create();
-		registry.emplace<Sample::Components::WorldPosition>(playerUnit, 1.0f, -1.0f);
+		registry.emplace<Sample::Components::WorldPosition>(playerUnit, 0.0f, 1.0f);
 		registry.emplace<Sample::Components::ScreenPosition>(playerUnit);
 		registry.emplace<Sample::Components::RenderPosition>(playerUnit);
 		registry.emplace<Sample::Components::RenderColor>(playerUnit, Sample::Types::Color { 0, 255, 0, 255 });
@@ -71,15 +66,10 @@ int main() {
 
 	{
 		const auto otherProvince = registry.create();
-		const std::vector<Sample::Types::Vector2Float> worldPositions = {
-			{ 2.5, 0.0 }, { 4.5, 0.0 },
-			{ 4.5, -2.0 }, { 2.5, -2.0 },
-			{ 3.0, -1.0 }, { 2.5, 0.0 },
-		};
-		registry.emplace<Sample::Components::WorldPositionSet>(otherProvince, worldPositions);
-		registry.emplace<Sample::Components::ScreenPositionSet>(otherProvince, std::vector<Sample::Types::Vector2Int>());
-		registry.emplace<Sample::Components::RenderPositionSet>(otherProvince, std::vector<Sample::Types::Vector2Int>());
-		registry.emplace<Sample::Components::RenderLine>(otherProvince, Sample::Types::Color { 255, 0, 0, 255 });
+		registry.emplace<Sample::Components::WorldPosition>(otherProvince, -1.0f, 0.0f);
+		registry.emplace<Sample::Components::ScreenPosition>(otherProvince);
+		registry.emplace<Sample::Components::RenderPosition>(otherProvince);
+		registry.emplace<Sample::Components::RenderColor>(otherProvince, Sample::Types::Color { 255, 0, 0, 255 });
 	}
 
 	// TODO: simplify this
