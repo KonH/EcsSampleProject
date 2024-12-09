@@ -1,12 +1,9 @@
 #pragma once
 
 #include <string>
-#include <memory>
-#include <sstream>
-#include <iostream>
+#include <format>
 
 namespace Sample::Logging {
-	// TODO: fix formatting
 	class Logger {
 	public:
 		template<typename... Args>
@@ -31,11 +28,12 @@ namespace Sample::Logging {
 		static void LogErrorImpl(const std::string& message);
 
 		template<typename... Args>
-		static std::string formatMessage(const std::string& format, Args&&... args) {
-			std::ostringstream oss;
-			oss << format;
-			(void(oss << std::forward<Args>(args)), ...);
-			return oss.str();
+		static std::string formatMessage(const std::string &format, Args &&...args) {
+			try {
+				return std::vformat(format, std::make_format_args(args...));
+			} catch (const std::format_error &e) {
+				return std::string("Formatting error: ") + e.what();
+			}
 		}
 	};
 }
