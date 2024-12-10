@@ -114,6 +114,9 @@ add_executable(runTests tests/test_main.cpp ${SRC_FILES})
 target_link_libraries(runTests gtest gtest_main EnTT tweeny fmt)
 target_include_directories(runTests
         PRIVATE ${CMAKE_SOURCE_DIR}/src)
+if (USE_LOG_COUT)
+    target_compile_definitions(runTests PRIVATE USE_LOG_COUT)
+endif()
 gtest_discover_tests(runTests)
 
 # Benchmarks executable

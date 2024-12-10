@@ -3,7 +3,7 @@
 
 #include "Systems/System.h"
 
-namespace Sample::Systems::Raylib {
+namespace Sample::Systems::Presentation {
 	class HighlightCellByMousePositionSystem final : public System {
 	public:
 		explicit HighlightCellByMousePositionSystem(entt::registry& registry);

@@ -7,10 +7,13 @@
 #include "Components/ControlPress.h"
 #include "Components/ControlDown.h"
 #include "Components/MouseScroll.h"
+#include "Components/MousePosition.h"
 #include "Components/MouseMove.h"
 
 namespace Sample::Systems::Raylib {
-	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {}
+	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {
+		_registry.ctx().emplace<Components::MousePosition>();
+	}
 
 	void InputSystem::Update() {
 #if defined(PLATFORM_DESKTOP)
@@ -26,10 +29,16 @@ namespace Sample::Systems::Raylib {
 				OnKeyDown(key);
 			}
 		}
+		
 		const auto mouseWheelMove = GetMouseWheelMove();
 		if (std::abs(mouseWheelMove) > 0.01f) {
 			_registry.emplace<Components::MouseScroll>(_registry.create(), mouseWheelMove);
 		}
+		
+		const auto rawMousePosition = GetMousePosition();
+		const auto mousePosition = Types::Vector2Float { rawMousePosition.x, rawMousePosition.y };
+		_registry.ctx().get<Components::MousePosition>().position = mousePosition;
+
 		const auto mouseDelta = GetMouseDelta();
 		if ((std::abs(mouseDelta.x) > 0.01f) || (std::abs(mouseDelta.y) > 0.01f)) {
 			const Types::Vector2Float mouseDeltaVec = { mouseDelta.x, mouseDelta.y };

@@ -2,6 +2,7 @@
 
 #include "Types/Color.h"
 #include "Types/Vector2Float.h"
+
 #include "Components/RenderColor.h"
 #include "Components/RenderLine.h"
 #include "Components/RenderPosition.h"
@@ -14,6 +15,11 @@
 #include "Components/ScreenPositionSet.h"
 #include "Components/WorldPosition.h"
 #include "Components/WorldPositionSet.h"
+#include "Components/IsHighlightCell.h"
+#include "Components/Army.h"
+#include "Components/IsPlayer.h"
+#include "Components/HighlightColor.h"
+
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
 #include "Logging/Logger.h"
@@ -41,6 +47,7 @@ int main() {
 
 	const auto locationRenderLayer = 0;
 	const auto unitRenderLayer = 1;
+	const auto highlightRenderLayer = 2;
 
 	{
 		const auto playerProvince = registry.create();
@@ -56,9 +63,12 @@ int main() {
 		registry.emplace<Sample::Components::WorldPosition>(playerArmy, 0.0f, 0.0f);
 		registry.emplace<Sample::Components::ScreenPosition>(playerArmy);
 		registry.emplace<Sample::Components::RenderPosition>(playerArmy);
-		registry.emplace<Sample::Components::RenderColor>(playerArmy, Sample::Types::Color { 0, 255, 0, 255 });
+		registry.emplace<Sample::Components::RenderColor>(playerArmy, Sample::Types::Color { 0, 155, 0, 255 });
 		registry.emplace<Sample::Components::RenderScale>(playerArmy, 0.5f);
 		registry.emplace<Sample::Components::RenderLayer>(playerArmy, unitRenderLayer);
+		registry.emplace<Sample::Components::Army>(playerArmy);
+		registry.emplace<Sample::Components::IsPlayer>(playerArmy);
+		registry.emplace<Sample::Components::HighlightColor>(playerArmy, Sample::Types::Color { 0, 255, 0, 255 },  Sample::Types::Color { 0, 155, 0, 255 });
 	}
 
 	{
@@ -68,6 +78,17 @@ int main() {
 		registry.emplace<Sample::Components::RenderPosition>(otherProvince);
 		registry.emplace<Sample::Components::RenderColor>(otherProvince, Sample::Types::Color { 255, 0, 0, 255 });
 		registry.emplace<Sample::Components::RenderLayer>(otherProvince, locationRenderLayer);
+	}
+
+	{
+		const auto cellHighlighter = registry.create();
+		registry.emplace<Sample::Components::WorldPosition>(cellHighlighter, 0.0f, 0.0f);
+		registry.emplace<Sample::Components::ScreenPosition>(cellHighlighter);
+		registry.emplace<Sample::Components::RenderPosition>(cellHighlighter);
+		registry.emplace<Sample::Components::RenderColor>(cellHighlighter, Sample::Types::Color { 125, 125, 125, 125 });
+		registry.emplace<Sample::Components::RenderScale>(cellHighlighter, 0.75f);
+		registry.emplace<Sample::Components::RenderLayer>(cellHighlighter, unitRenderLayer);
+		registry.emplace<Sample::Components::IsHighlightCell>(cellHighlighter);
 	}
 
 	Sample::Systems::SystemsBuilder::PreMainInitialize(registry, systems);

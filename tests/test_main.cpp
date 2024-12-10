@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+
 #include "Systems/Movement/PlayerMovementSystemTest.h"
+#include "Systems/Selection/MouseArmySelectionSystemTest.h"
 
 // TODO: integrate code coverage
 
