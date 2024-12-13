@@ -117,6 +117,13 @@ target_include_directories(runTests
 if (USE_LOG_COUT)
     target_compile_definitions(runTests PRIVATE USE_LOG_COUT)
 endif()
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    option(ENABLE_COVERAGE "Enable code coverage" OFF)
+    if (ENABLE_COVERAGE)
+        target_compile_options(runTests PRIVATE --coverage)
+        target_link_options(runTests PRIVATE --coverage)
+    endif()
+endif()
 gtest_discover_tests(runTests)
 
 # Benchmarks executable
