@@ -34,9 +34,9 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          geninfo build --output-filename coverage.info --rc lcov_branch_coverage=1
+          geninfo build --output-filename coverage.info --rc lcov_branch_coverage=1 -ignore-errors mismatch
           lcov --remove coverage.info '/usr/*' '*/_deps/*' '*/tests/*' --output-file coverage.info --verbose
-          lcov --ignore-errors mismatch,gcov --list coverage.info --verbose
+          lcov --list coverage.info --verbose
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
