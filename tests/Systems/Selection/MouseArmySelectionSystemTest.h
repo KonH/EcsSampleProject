@@ -16,7 +16,7 @@
 #include "Systems/Selection/MouseArmySelectionSystem.h"
 
 namespace Sample::Tests {
-	TEST(MouseArmySelectionSystemTest, IsPlayerArmySelectedOnMouseClick) {
+	TEST(EcsSampleMouseArmySelectionSystemTest, IsPlayerArmySelectedOnMouseClick) {
 		entt::registry registry;
 		
 		registry.ctx().emplace<Components::RenderSettings>();
