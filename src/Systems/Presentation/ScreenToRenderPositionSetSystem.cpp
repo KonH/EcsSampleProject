@@ -22,7 +22,7 @@ namespace Sample::Systems::Presentation {
 				renderPositions.clear();
 				renderPositions.resize(screenPositions.size());
 			}
-			for (auto i = 0; i < screenPositions.size(); ++i) {
+			for (size_t i = 0; i < screenPositions.size(); ++i) {
 				renderPositions[i] = screenPositions[i] + offset;
 			}
 		}

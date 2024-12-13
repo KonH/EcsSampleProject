@@ -19,7 +19,7 @@ namespace Sample::Systems::Presentation {
 				screenPositions.clear();
 				screenPositions.resize(worldPositions.size());
 			}
-			for (auto i = 0; i < worldPositions.size(); ++i) {
+			for (size_t i = 0; i < worldPositions.size(); ++i) {
 				screenPositions[i] = VectorUtils::ToScreenPosition(renderSettings, center,worldPositions[i]);
 			}
 		}

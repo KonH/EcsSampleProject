@@ -24,7 +24,7 @@ namespace Sample::Systems::Raylib {
 				renderLine.color.blue,
 				renderLine.color.alpha
 			};
-			for (auto i = 0; i < positions.size() - 1; ++i) {
+			for (size_t i = 0; i < positions.size() - 1; ++i) {
 				const auto& start = positions[i];
 				const auto& end = positions[i + 1];
 				DrawLine(

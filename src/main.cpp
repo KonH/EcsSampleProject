@@ -87,7 +87,7 @@ int main() {
 		registry.emplace<Sample::Components::RenderPosition>(cellHighlighter);
 		registry.emplace<Sample::Components::RenderColor>(cellHighlighter, Sample::Types::Color { 125, 125, 125, 125 });
 		registry.emplace<Sample::Components::RenderScale>(cellHighlighter, 0.75f);
-		registry.emplace<Sample::Components::RenderLayer>(cellHighlighter, unitRenderLayer);
+		registry.emplace<Sample::Components::RenderLayer>(cellHighlighter, highlightRenderLayer);
 		registry.emplace<Sample::Components::IsHighlightCell>(cellHighlighter);
 	}
 
