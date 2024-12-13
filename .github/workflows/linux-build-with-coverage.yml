@@ -24,10 +24,10 @@ jobs:
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
 
       - name: Build with CMake
-        run: cmake --build build --config Release
+        run: cmake --build build --config Debug
 
       - name: Run tests
-        run: ctest --test-dir build --output-on-failure -C Release -R EcsSample
+        run: ctest --test-dir build --output-on-failure -C Debug -R EcsSample
 
       - name: Check Coverage Files
         run: find build -name "*.gcda" -print
