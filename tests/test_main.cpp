@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
 
+#include "Execution/MainLoopRunnerTest.h"
+#include "Systems/Animation/MovementAnimationSystemTest.h"
 #include "Systems/Movement/ObstacleFilterSystemTest.h"
 #include "Systems/Movement/PlayerMovementSystemTest.h"
 #include "Systems/Movement/WorldMovementSystemTest.h"
+#include "Systems/Presentation/ScreenToRenderPositionSetSystemTest.h"
 #include "Systems/Selection/MouseArmySelectionSystemTest.h"
 #include "Systems/Utility/ActionProgressCleanUpSystemTest.h"
 #include "Systems/Utility/ActionProgressUpdateSystemTest.h"

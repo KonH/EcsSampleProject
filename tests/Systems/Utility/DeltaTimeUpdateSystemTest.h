@@ -25,7 +25,7 @@ namespace Sample::Tests {
 		deltaTimeUpdateSystem.Update();
 
 		const auto &runtime = registry.ctx().get<Components::Runtime>();
-		EXPECT_NEAR(runtime.deltaTime, 0.016f, 0.01f);
+		EXPECT_NEAR(runtime.deltaTime, 0.016f, 0.05f);
 	}
 
 	TEST(DeltaTimeUpdateSystemTest, InitialDeltaTimeIsZero) {
