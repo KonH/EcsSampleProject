@@ -9,7 +9,7 @@
 #include "Systems/Presentation/ScreenToRenderPositionSystem.h"
 
 namespace Sample::Tests {
-	TEST(ScreenToRenderPositionSystemTest, RenderPositionUpdatedWithoutOffset) {
+	TEST(EcsSampleScreenToRenderPositionSystemTest, RenderPositionUpdatedWithoutOffset) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -24,7 +24,7 @@ namespace Sample::Tests {
 		EXPECT_EQ(renderPosition.position.y, 20);
 	}
 
-	TEST(ScreenToRenderPositionSystemTest, RenderPositionUpdatedWithOffset) {
+	TEST(EcsSampleScreenToRenderPositionSystemTest, RenderPositionUpdatedWithOffset) {
 		entt::registry registry;
 
 		const auto entity = registry.create();

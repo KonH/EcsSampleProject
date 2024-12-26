@@ -16,7 +16,7 @@
 #include "Systems/Utility/EventCleanUpSystem.h"
 
 namespace Sample::Tests {
-	TEST(EventCleanUpSystemTest, CleanUpControlPress) {
+	TEST(EcsSampleEventCleanUpSystemTest, CleanUpControlPress) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -29,7 +29,7 @@ namespace Sample::Tests {
 		EXPECT_FALSE(registry.all_of<Components::ControlPress>(entity));
 	}
 
-	TEST(EventCleanUpSystemTest, CleanUpActionFinish) {
+	TEST(EcsSampleEventCleanUpSystemTest, CleanUpActionFinish) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -42,7 +42,7 @@ namespace Sample::Tests {
 		EXPECT_FALSE(registry.all_of<Components::ActionFinish>(entity));
 	}
 
-	TEST(EventCleanUpSystemTest, CleanUpAllEvents) {
+	TEST(EcsSampleEventCleanUpSystemTest, CleanUpAllEvents) {
 		entt::registry registry;
 
 		const auto entity = registry.create();

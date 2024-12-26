@@ -20,7 +20,7 @@ namespace Sample::Tests {
 		std::atomic<bool> updateCalled{false};
 	};
 
-	TEST(MainLoopRunnerTest, SystemsUpdateCalled) {
+	TEST(EcsSampleMainLoopRunnerTest, SystemsUpdateCalled) {
 		entt::registry registry;
 		registry.ctx().emplace<Components::Runtime>().isRunning = true;
 
@@ -41,7 +41,7 @@ namespace Sample::Tests {
 		EXPECT_TRUE(mockSystemPtr->updateCalled);
 	}
 
-	TEST(MainLoopRunnerTest, MainLoopStopsWhenRuntimeIsNotRunning) {
+	TEST(EcsSampleMainLoopRunnerTest, MainLoopStopsWhenRuntimeIsNotRunning) {
 		entt::registry registry;
 		registry.ctx().emplace<Components::Runtime>().isRunning = true;
 

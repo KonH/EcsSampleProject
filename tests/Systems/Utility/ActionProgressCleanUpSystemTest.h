@@ -10,7 +10,7 @@
 #include "Systems/Utility/ActionProgressCleanUpSystem.h"
 
 namespace Sample::Tests {
-	TEST(ActionProgressCleanUpSystemTest, RemoveActionProgressWhenFinished) {
+	TEST(EcsSampleActionProgressCleanUpSystemTest, RemoveActionProgressWhenFinished) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -26,7 +26,7 @@ namespace Sample::Tests {
 		EXPECT_TRUE(registry.valid(entity));
 	}
 
-	TEST(ActionProgressCleanUpSystemTest, DestroyOrphanEntity) {
+	TEST(EcsSampleActionProgressCleanUpSystemTest, DestroyOrphanEntity) {
 		entt::registry registry;
 
 		const auto entity = registry.create();

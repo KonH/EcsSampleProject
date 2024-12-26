@@ -10,7 +10,7 @@
 #include "Systems/Movement/ObstacleFilterSystem.h"
 
 namespace Sample::Tests {
-	TEST(ObstacleFilterSystemTest, RemoveMovementIntentWhenObstaclePresent) {
+	TEST(EcsSampleObstacleFilterSystemTest, RemoveMovementIntentWhenObstaclePresent) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -28,7 +28,7 @@ namespace Sample::Tests {
 		EXPECT_FALSE(registry.all_of<Components::WorldMovementIntent>(entity));
 	}
 
-	TEST(ObstacleFilterSystemTest, KeepMovementIntentWhenNoObstacle) {
+	TEST(EcsSampleObstacleFilterSystemTest, KeepMovementIntentWhenNoObstacle) {
 		entt::registry registry;
 
 		const auto entity = registry.create();

@@ -10,7 +10,7 @@
 #include "Systems/Utility/ActionProgressUpdateSystem.h"
 
 namespace Sample::Tests {
-	TEST(ActionProgressUpdateSystemTest, UpdateActionProgress) {
+	TEST(EcsSampleActionProgressUpdateSystemTest, UpdateActionProgress) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -26,7 +26,7 @@ namespace Sample::Tests {
 		EXPECT_FALSE(registry.all_of<Components::ActionFinish>(entity));
 	}
 
-	TEST(ActionProgressUpdateSystemTest, CompleteActionProgress) {
+	TEST(EcsSampleActionProgressUpdateSystemTest, CompleteActionProgress) {
 		entt::registry registry;
 
 		const auto entity = registry.create();

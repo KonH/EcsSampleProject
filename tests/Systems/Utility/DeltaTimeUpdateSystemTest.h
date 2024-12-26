@@ -8,7 +8,7 @@
 #include "Systems/Utility/DeltaTimeUpdateSystem.h"
 
 namespace Sample::Tests {
-	TEST(DeltaTimeUpdateSystemTest, UpdateDeltaTime) {
+	TEST(EcsSampleDeltaTimeUpdateSystemTest, UpdateDeltaTime) {
 		entt::registry registry;
 
 		registry.ctx().emplace<Components::Runtime>();
@@ -28,7 +28,7 @@ namespace Sample::Tests {
 		EXPECT_NEAR(runtime.deltaTime, 0.016f, 0.05f);
 	}
 
-	TEST(DeltaTimeUpdateSystemTest, InitialDeltaTimeIsZero) {
+	TEST(EcsSampleDeltaTimeUpdateSystemTest, InitialDeltaTimeIsZero) {
 		entt::registry registry;
 
 		registry.ctx().emplace<Components::Runtime>();

@@ -37,7 +37,7 @@ namespace Sample::Tests {
 		EXPECT_TRUE(registry.all_of<Components::IsSelected>(playerArmy));
 	}
 
-	TEST(MouseArmySelectionSystemTest, IsPlayerArmyDeselectedOnMouseClick) {
+	TEST(EcsSampleMouseArmySelectionSystemTest, IsPlayerArmyDeselectedOnMouseClick) {
 		entt::registry registry;
 
 		registry.ctx().emplace<Components::RenderSettings>();

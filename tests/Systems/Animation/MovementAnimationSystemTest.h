@@ -15,7 +15,7 @@
 #include "Systems/Animation/MovementAnimationSystem.h"
 
 namespace Sample::Tests {
-	TEST(MovementAnimationSystemTest, AnimationStartsCorrectly) {
+	TEST(EcsSampleMovementAnimationSystemTest, AnimationStartsCorrectly) {
 		entt::registry registry;
 		registry.ctx().emplace<Components::RenderSettings>().unitSize = 1.0f;
 
@@ -32,7 +32,7 @@ namespace Sample::Tests {
 		EXPECT_TRUE(registry.all_of<Components::ScreenOffset>(entity));
 	}
 
-	TEST(MovementAnimationSystemTest, AnimationUpdatesCorrectly) {
+	TEST(EcsSampleMovementAnimationSystemTest, AnimationUpdatesCorrectly) {
 		entt::registry registry;
 		registry.ctx().emplace<Components::RenderSettings>().unitSize = 1.0f;
 
@@ -52,7 +52,7 @@ namespace Sample::Tests {
 		EXPECT_NE(offset.offset.y, 0);
 	}
 
-	TEST(MovementAnimationSystemTest, AnimationFinishesCorrectly) {
+	TEST(EcsSampleMovementAnimationSystemTest, AnimationFinishesCorrectly) {
 		entt::registry registry;
 		registry.ctx().emplace<Components::RenderSettings>().unitSize = 1.0f;
 

@@ -13,7 +13,7 @@
 #include "Systems/Movement/WorldMovementSystem.h"
 
 namespace Sample::Tests {
-	TEST(WorldMovementSystemTest, ApplyMovementIntent) {
+	TEST(EcsSampleWorldMovementSystemTest, ApplyMovementIntent) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
@@ -32,7 +32,7 @@ namespace Sample::Tests {
 		EXPECT_EQ(movement.change.y, 5.0f);
 	}
 
-	TEST(WorldMovementSystemTest, ApplyNewPosition) {
+	TEST(EcsSampleWorldMovementSystemTest, ApplyNewPosition) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
