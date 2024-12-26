@@ -3,40 +3,46 @@
 #include <entt/entt.hpp>
 #include <gtest/gtest.h>
 
-#include "Components/RenderPosition.h"
+#include "Components/RenderPositionSet.h"
 #include "Components/ScreenOffset.h"
-#include "Components/ScreenPosition.h"
-#include "Systems/Presentation/ScreenToRenderPositionSystem.h"
+#include "Components/ScreenPositionSet.h"
+#include "Systems/Presentation/ScreenToRenderPositionSetSystem.h"
 
 namespace Sample::Tests {
-	TEST(EcsSampleScreenToRenderPositionSystemTest, RenderPositionUpdatedWithoutOffset) {
+	TEST(EcsSampleScreenToRenderPositionSetSystemTest, RenderPositionsUpdatedWithoutOffset) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
-		registry.emplace<Components::ScreenPosition>(entity, Types::Vector2Int{10, 20});
-		registry.emplace<Components::RenderPosition>(entity, Types::Vector2Int{0, 0});
+		registry.emplace<Components::ScreenPositionSet>(entity, std::vector<Types::Vector2Int>{{10, 20}, {30, 40}});
+		registry.emplace<Components::RenderPositionSet>(entity, std::vector<Types::Vector2Int>{});
 
-		Sample::Systems::Presentation::ScreenToRenderPositionSystem system(registry);
+		Sample::Systems::Presentation::ScreenToRenderPositionSetSystem system(registry);
 		system.Update();
 
-		const auto &renderPosition = registry.get<Components::RenderPosition>(entity);
-		EXPECT_EQ(renderPosition.position.x, 10);
-		EXPECT_EQ(renderPosition.position.y, 20);
+		const auto &renderPositionSet = registry.get<Components::RenderPositionSet>(entity);
+		EXPECT_EQ(renderPositionSet.positions.size(), 2);
+		EXPECT_EQ(renderPositionSet.positions[0].x, 10);
+		EXPECT_EQ(renderPositionSet.positions[0].y, 20);
+		EXPECT_EQ(renderPositionSet.positions[1].x, 30);
+		EXPECT_EQ(renderPositionSet.positions[1].y, 40);
 	}
 
-	TEST(EcsSampleScreenToRenderPositionSystemTest, RenderPositionUpdatedWithOffset) {
+	TEST(EcsSampleScreenToRenderPositionSetSystemTest, RenderPositionsUpdatedWithOffset) {
 		entt::registry registry;
 
 		const auto entity = registry.create();
-		registry.emplace<Components::ScreenPosition>(entity, Types::Vector2Int{10, 20});
-		registry.emplace<Components::RenderPosition>(entity, Types::Vector2Int{0, 0});
+		registry.emplace<Components::ScreenPositionSet>(entity, std::vector<Types::Vector2Int>{{10, 20}, {30, 40}});
+		registry.emplace<Components::RenderPositionSet>(entity, std::vector<Types::Vector2Int>{});
 		registry.emplace<Components::ScreenOffset>(entity, Types::Vector2Int{5, 5});
 
-		Sample::Systems::Presentation::ScreenToRenderPositionSystem system(registry);
+		Sample::Systems::Presentation::ScreenToRenderPositionSetSystem system(registry);
 		system.Update();
 
-		const auto &renderPosition = registry.get<Components::RenderPosition>(entity);
-		EXPECT_EQ(renderPosition.position.x, 15);
-		EXPECT_EQ(renderPosition.position.y, 25);
+		const auto &renderPositionSet = registry.get<Components::RenderPositionSet>(entity);
+		EXPECT_EQ(renderPositionSet.positions.size(), 2);
+		EXPECT_EQ(renderPositionSet.positions[0].x, 15);
+		EXPECT_EQ(renderPositionSet.positions[0].y, 25);
+		EXPECT_EQ(renderPositionSet.positions[1].x, 35);
+		EXPECT_EQ(renderPositionSet.positions[1].y, 45);
 	}
 }
