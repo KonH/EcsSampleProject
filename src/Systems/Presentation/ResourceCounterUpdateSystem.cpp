@@ -9,10 +9,12 @@
 
 #include "Components/ResourceCounter.h"
 #include "Components/ResourceHolder.h"
-#include "Components/Text.h"
+
+#include "Components/Render/Text.h"
 
 namespace Sample::Systems::Presentation {
 	using namespace Sample::Components;
+	using namespace Sample::Components::Render;
 
 	ResourceCounterUpdateSystem::ResourceCounterUpdateSystem(entt::registry &registry) : _registry(registry) {}
 

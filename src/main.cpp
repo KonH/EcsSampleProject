@@ -8,7 +8,6 @@
 #include "Components/RenderColor.h"
 #include "Components/RenderFill.h"
 #include "Components/RenderLine.h"
-#include "Components/Text.h"
 #include "Components/RenderPosition.h"
 #include "Components/RenderScale.h"
 #include "Components/RenderLayer.h"
@@ -32,6 +31,8 @@
 #include "Components/Building.h"
 #include "Components/Province.h"
 
+#include "Components/Render/Text.h"
+
 #include "Configs/BuildingConfig.h"
 #include "Configs/BuildingConfigProvider.h"
 
@@ -47,6 +48,7 @@
 int main() {
 	using namespace Sample::Types;
 	using namespace Sample::Components;
+	using namespace Sample::Components::Render;
 	using namespace Sample::Configs;
 
 	Sample::Logging::Logger::LogInfo("Starting ECS Sample Project");
@@ -176,7 +178,7 @@ int main() {
 		const auto nextTurnButtonText = registry.create();
 		registry.emplace<ScreenPosition>(nextTurnButtonText, screenWidth - width - offset + textOffset, screenHeight - height - offset + textOffset);
 		registry.emplace<RenderPosition>(nextTurnButtonText);
-		registry.emplace<Text>(nextTurnButtonText, "Roboto-Black.ttf", 22, "Next Turn");
+		registry.emplace<Text>(nextTurnButtonText, "Roboto-Black.ttf", 22.0f, "Next Turn");
 		registry.emplace<RenderColor>(nextTurnButtonText, Color { 0, 125, 0, 255 });
 		registry.emplace<RenderLayer>(nextTurnButtonText, uiTextRenderLayer);
 
@@ -191,7 +193,7 @@ int main() {
         const auto turnsCounterText = registry.create();
         registry.emplace<ScreenPosition>(turnsCounterText, screenWidth - 120, 20);
         registry.emplace<RenderPosition>(turnsCounterText);
-        registry.emplace<Text>(turnsCounterText, "Roboto-Black.ttf", 25, "Turns: 0");
+        registry.emplace<Text>(turnsCounterText, "Roboto-Black.ttf", 25.0f, "Turns: 0");
 		registry.emplace<RenderColor>(turnsCounterText, Color { 0, 125, 0, 255 });
         registry.emplace<RenderLayer>(turnsCounterText, uiTextRenderLayer);
 		registry.emplace<ResourceCounter>(turnsCounterText, turnsResourceId, globalEntity);
@@ -201,7 +203,7 @@ int main() {
 		const auto resourceCounterText = registry.create();
 		registry.emplace<ScreenPosition>(resourceCounterText, 20, 20);
 		registry.emplace<RenderPosition>(resourceCounterText);
-		registry.emplace<Text>(resourceCounterText, "Roboto-Black.ttf", 25, "Coins: 0");
+		registry.emplace<Text>(resourceCounterText, "Roboto-Black.ttf", 25.0f, "Coins: 0");
 		registry.emplace<RenderColor>(resourceCounterText, Color { 0, 125, 0, 255 });
 		registry.emplace<RenderLayer>(resourceCounterText, uiTextRenderLayer);
 		registry.emplace<ResourceCounter>(resourceCounterText, coinsResourceId, playerEntity);

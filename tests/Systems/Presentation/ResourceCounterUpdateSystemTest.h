@@ -7,7 +7,8 @@
 
 #include "Components/ResourceCounter.h"
 #include "Components/ResourceHolder.h"
-#include "Components/Text.h"
+
+#include "Components/Render/Text.h"
 
 #include "Systems/Presentation/ResourceCounterUpdateSystem.h"
 
@@ -22,13 +23,13 @@ namespace Sample::Tests {
 
 		const auto resourceCounterEntity = registry.create();
 		registry.emplace<Components::ResourceCounter>(resourceCounterEntity, "Coins", player);
-		registry.emplace<Components::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25, "");
+		registry.emplace<Components::Render::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25.0f, "");
 
 		auto resourceCounterUpdateSystem = Systems::Presentation::ResourceCounterUpdateSystem{registry};
 
 		resourceCounterUpdateSystem.Update();
 
-		const auto &text = registry.get<Components::Text>(resourceCounterEntity);
+		const auto &text = registry.get<Components::Render::Text>(resourceCounterEntity);
 		EXPECT_EQ(text.text, "Coins: 100");
 	}
 
@@ -42,13 +43,13 @@ namespace Sample::Tests {
 
 		const auto resourceCounterEntity = registry.create();
 		registry.emplace<Components::ResourceCounter>(resourceCounterEntity, "Coins", player);
-		registry.emplace<Components::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25, "");
+		registry.emplace<Components::Render::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25.0f, "");
 
 		auto resourceCounterUpdateSystem = Systems::Presentation::ResourceCounterUpdateSystem{registry};
 
 		resourceCounterUpdateSystem.Update();
 
-		const auto &text = registry.get<Components::Text>(resourceCounterEntity);
+		const auto &text = registry.get<Components::Render::Text>(resourceCounterEntity);
 		EXPECT_EQ(text.text, "Coins: 123.45");
 	}
 
@@ -57,13 +58,13 @@ namespace Sample::Tests {
 
 		const auto resourceCounterEntity = registry.create();
 		registry.emplace<Components::ResourceCounter>(resourceCounterEntity, "Coins", entt::null);
-		registry.emplace<Components::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25, "");
+		registry.emplace<Components::Render::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25.0f, "");
 
 		auto resourceCounterUpdateSystem = Systems::Presentation::ResourceCounterUpdateSystem{registry};
 
 		resourceCounterUpdateSystem.Update();
 
-		const auto &text = registry.get<Components::Text>(resourceCounterEntity);
+		const auto &text = registry.get<Components::Render::Text>(resourceCounterEntity);
 		EXPECT_EQ(text.text, "");
 	}
 
@@ -76,13 +77,13 @@ namespace Sample::Tests {
 
 		const auto resourceCounterEntity = registry.create();
 		registry.emplace<Components::ResourceCounter>(resourceCounterEntity, "InvalidResource", player);
-		registry.emplace<Components::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25, "");
+		registry.emplace<Components::Render::Text>(resourceCounterEntity, "Roboto-Black.ttf", 25.0f, "");
 
 		auto resourceCounterUpdateSystem = Systems::Presentation::ResourceCounterUpdateSystem{registry};
 
 		resourceCounterUpdateSystem.Update();
 
-		const auto &text = registry.get<Components::Text>(resourceCounterEntity);
+		const auto &text = registry.get<Components::Render::Text>(resourceCounterEntity);
 		EXPECT_EQ(text.text, "");
 	}
 }

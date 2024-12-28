@@ -3,14 +3,18 @@
 
 #include <raylib.h>
 
+#include "Utils.h"
+
+#include "Logging/Logger.h"
+
 #include "Components/RenderPosition.h"
 #include "Components/RenderColor.h"
-#include "Components/Text.h"
-#include "Logging/Logger.h"
-#include "Utils.h"
+
+#include "Components/Render/Text.h"
 
 namespace Sample::Systems::Raylib {
 	using namespace Components;
+	using namespace Components::Render;
 
 	RenderTextSystem::RenderTextSystem(entt::registry &registry) : _registry(registry) {}
 
@@ -20,7 +24,7 @@ namespace Sample::Systems::Raylib {
 			if (const auto font = TryLoadFont(text.fontName); font) {
 				const auto pos = Vector2 { static_cast<float>(renderPosition.position.x), static_cast<float>(renderPosition.position.y) };
 				const auto color = Utils::ConvertColor(renderColor.color);
-				DrawTextEx(*font, text.text.c_str(), pos, static_cast<float>(text.size), 1, color);
+				DrawTextEx(*font, text.text.c_str(), pos, text.size, 1, color);
 			}
 		}
 	}

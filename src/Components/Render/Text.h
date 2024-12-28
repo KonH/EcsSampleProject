@@ -4,10 +4,10 @@
 
 #include "Types/Color.h"
 
-namespace Sample::Components {
+namespace Sample::Components::Render {
 	struct Text {
 		std::string fontName;
-		int size;
+		float size;
 		std::string text;
 	};
 }
