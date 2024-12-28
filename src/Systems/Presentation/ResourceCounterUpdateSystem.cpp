@@ -24,7 +24,7 @@ namespace Sample::Systems::Presentation {
 				Sample::Logging::Logger::LogError("[ResourceCounterUpdateSystem] Resource owner entity is invalid: {}", std::to_string(static_cast<int>(resourceCounter.resourceOwner)));
 				continue;
 			}
-			if (const auto &resourceHolder = _registry.try_get<ResourceHolder>(resourceCounter.resourceOwner)) {
+			if (const auto& resourceHolder = _registry.try_get<ResourceHolder>(resourceCounter.resourceOwner)) {
 				auto it = resourceHolder->resources.find(resourceCounter.resourceId);
 				if (it == resourceHolder->resources.end()) {
 					Sample::Logging::Logger::LogError(
@@ -37,6 +37,11 @@ namespace Sample::Systems::Presentation {
 
 				double displayAmount = ResourceConstants::GetDisplayUnits(resourceAmount);
 
+				constexpr double epsilon = 1e-9;
+				if (std::fabs(displayAmount - resourceCounter.lastAmount) < epsilon) {
+					continue;
+				}
+
 				std::ostringstream oss;
 				oss << std::fixed << std::setprecision(3) << displayAmount;
 
@@ -47,8 +52,8 @@ namespace Sample::Systems::Presentation {
 					displayAmountStr.pop_back();
 				}
 
-				// TODO: do not update text if the value is the same
 				text.text = resourceCounter.resourceId + ": " + displayAmountStr;
+				resourceCounter.lastAmount = displayAmount;
 			} else {
 				Sample::Logging::Logger::LogError(
 					"[ResourceCounterUpdateSystem] Resource owner entity does not have ResourceHolder component: {}",
