@@ -72,7 +72,7 @@ int main() {
 	registry.emplace<IsPlayer>(player);
 	std::map<std::string, long> resources;
 	resources[turnsResourceId] = 0;
-	resources[coinsResourceId] = 100;
+	resources[coinsResourceId] = 10000;
 	registry.emplace<ResourceHolder>(player, resources);
 
 	{
