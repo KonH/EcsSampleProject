@@ -11,9 +11,11 @@
 #include "Components/CameraMovement.h"
 #include "Components/Click.h"
 #include "Components/Turn.h"
+#include "Components/Presentation/NeedBounceAnimation.h"
 
 namespace Sample::Systems::Utility {
 	using namespace Components;
+	using namespace Components::Presentation;
 
 	EventCleanUpSystem::EventCleanUpSystem(entt::registry &registry) : _registry(registry) {}
 
@@ -30,5 +32,6 @@ namespace Sample::Systems::Utility {
 		CleanUp<CameraMovement>();
 		CleanUp<Click>();
 		CleanUp<Turn>();
+		CleanUp<NeedBounceAnimation>();
 	}
 }

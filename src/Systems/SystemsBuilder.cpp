@@ -3,6 +3,7 @@
 #include "Frontend/FrontendSystems.h"
 
 #include "Animation/MovementAnimationSystem.h"
+#include "Animation/TextBounceAnimationSystem.h"
 
 #include "Buildings/BuildingIncomeSystem.h"
 
@@ -50,6 +51,7 @@ namespace Sample::Systems {
 		Add<Presentation::WorldToScreenPositionSystem>(registry, systems);
 		Add<Presentation::WorldToScreenPositionSetSystem>(registry, systems);
 		Add<Animation::MovementAnimationSystem>(registry, systems);
+		Add<Animation::TextBounceAnimationSystem>(registry, systems);
 		Add<Presentation::ScreenToRenderPositionSystem>(registry, systems);
 		Add<Presentation::ScreenToRenderPositionSetSystem>(registry, systems);
 		Add<Camera::CameraZoomSystem>(registry, systems);

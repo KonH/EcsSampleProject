@@ -12,9 +12,12 @@
 
 #include "Components/Render/Text.h"
 
+#include "Components/Presentation/NeedBounceAnimation.h"
+
 namespace Sample::Systems::Presentation {
 	using namespace Sample::Components;
 	using namespace Sample::Components::Render;
+	using namespace Sample::Components::Presentation;
 
 	ResourceCounterUpdateSystem::ResourceCounterUpdateSystem(entt::registry &registry) : _registry(registry) {}
 
@@ -55,6 +58,11 @@ namespace Sample::Systems::Presentation {
 				}
 
 				text.text = resourceCounter.resourceId + ": " + displayAmountStr;
+				
+				if (!std::isnan(resourceCounter.lastAmount)) {
+					_registry.emplace<NeedBounceAnimation>(entity);
+				}
+
 				resourceCounter.lastAmount = displayAmount;
 			} else {
 				Sample::Logging::Logger::LogError(

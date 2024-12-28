@@ -3,6 +3,7 @@
 #include "Execution/MainLoopRunnerTest.h"
 
 #include "Systems/Animation/MovementAnimationSystemTest.h"
+#include "Systems/Animation/TextBounceAnimationSystemTest.h"
 
 #include "Systems/Buildings/BuildingIncomeSystemTest.h"
 
