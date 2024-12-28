@@ -34,7 +34,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          geninfo build --output-filename coverage.info --rc lcov_branch_coverage=1 -ignore-errors mismatch
+          geninfo build --output-filename coverage.info --rc lcov_branch_coverage=1 -ignore-errors mismatch,negative
           lcov --remove coverage.info '/usr/*' '*/_deps/*' '*/tests/*' --output-file coverage.info --verbose
           lcov --list coverage.info --verbose
 
