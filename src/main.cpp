@@ -68,12 +68,16 @@ int main() {
 	const auto turnsResourceId = "Turns";
 	const auto coinsResourceId = "Coins";
 
-	const auto player = registry.create();
-	registry.emplace<IsPlayer>(player);
-	std::map<std::string, long> resources;
-	resources[turnsResourceId] = 0;
-	resources[coinsResourceId] = 10000;
-	registry.emplace<ResourceHolder>(player, resources);
+	const auto globalEntity = registry.create();
+	std::map<std::string, long> globalResources;
+	globalResources[turnsResourceId] = 1;
+	registry.emplace<ResourceHolder>(globalEntity, globalResources);
+
+	const auto playerEntity = registry.create();
+	registry.emplace<IsPlayer>(playerEntity);
+	std::map<std::string, long> playerResources;
+	playerResources[coinsResourceId] = 10000;
+	registry.emplace<ResourceHolder>(playerEntity, playerResources);
 
 	{
 		const auto playerProvince = registry.create();
@@ -83,7 +87,7 @@ int main() {
 		registry.emplace<RenderColor>(playerProvince, Color { 0, 0, 255, 255 });
 		registry.emplace<RenderFill>(playerProvince);
 		registry.emplace<RenderLayer>(playerProvince, locationRenderLayer);
-		registry.emplace<HasOwner>(playerProvince, player);
+		registry.emplace<HasOwner>(playerProvince, playerEntity);
 	}
 
 	{
@@ -161,7 +165,7 @@ int main() {
         registry.emplace<Text>(turnsCounterText, "Roboto-Black.ttf", 25, "Turns: 0");
 		registry.emplace<RenderColor>(turnsCounterText, Color { 0, 125, 0, 255 });
         registry.emplace<RenderLayer>(turnsCounterText, uiTextRenderLayer);
-		registry.emplace<ResourceCounter>(turnsCounterText, turnsResourceId, player);
+		registry.emplace<ResourceCounter>(turnsCounterText, turnsResourceId, globalEntity);
 	}
 	
 	{
@@ -171,7 +175,7 @@ int main() {
 		registry.emplace<Text>(resourceCounterText, "Roboto-Black.ttf", 25, "Coins: 0");
 		registry.emplace<RenderColor>(resourceCounterText, Color { 0, 125, 0, 255 });
 		registry.emplace<RenderLayer>(resourceCounterText, uiTextRenderLayer);
-		registry.emplace<ResourceCounter>(resourceCounterText, coinsResourceId, player);
+		registry.emplace<ResourceCounter>(resourceCounterText, coinsResourceId, playerEntity);
 	}
 
 	Sample::Systems::SystemsBuilder::PreMainInitialize(registry, systems);
