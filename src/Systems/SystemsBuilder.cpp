@@ -4,6 +4,8 @@
 
 #include "Animation/MovementAnimationSystem.h"
 
+#include "Buildings/BuildingIncomeSystem.h"
+
 #include "Camera/CameraZoomSystem.h"
 #include "Camera/CameraMovementIntentSystem.h"
 #include "Camera/CameraMovementSystem.h"
@@ -40,6 +42,7 @@ namespace Sample::Systems {
 		Add<Selection::MouseArmySelectionSystem>(registry, systems);
 		Add<UI::ButtonClickSystem>(registry, systems);
 		Add<Core::TurnAdvanceSystem>(registry, systems);
+		Add<Buildings::BuildingIncomeSystem>(registry, systems);
 		Add<Presentation::HighlightSelectedSystem>(registry, systems);
 		Add<Movement::WorldMovementSystem>(registry, systems);
 		Add<Presentation::ResourceCounterUpdateSystem>(registry, systems);

@@ -29,6 +29,11 @@
 #include "Components/ResourceHolder.h"
 #include "Components/BoxCollider.h"
 #include "Components/Button.h"
+#include "Components/Building.h"
+#include "Components/Province.h"
+
+#include "Configs/BuildingConfig.h"
+#include "Configs/BuildingConfigProvider.h"
 
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
@@ -42,6 +47,7 @@
 int main() {
 	using namespace Sample::Types;
 	using namespace Sample::Components;
+	using namespace Sample::Configs;
 
 	Sample::Logging::Logger::LogInfo("Starting ECS Sample Project");
 	
@@ -62,6 +68,17 @@ int main() {
 		true, // isRunning
 		0.f // deltaTime
 	);
+
+	const auto buildingId = "TownHall";
+
+	std::map<std::string, BuildingConfig> buildingConfigs;
+	buildingConfigs[buildingId] = BuildingConfig {
+		buildingId,
+		{
+			{ "Coins", static_cast<long>(0.5f * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT) }
+		}
+	};
+	ctx.emplace<BuildingConfigProvider>(buildingConfigs);
 
 	const auto locationRenderLayer = 0;
 	const auto unitRenderLayer = 1;
@@ -85,6 +102,7 @@ int main() {
 
 	{
 		const auto playerProvince = registry.create();
+		registry.emplace<Province>(playerProvince);
 		registry.emplace<WorldPosition>(playerProvince, 0.0f, 0.0f);
 		registry.emplace<ScreenPosition>(playerProvince);
 		registry.emplace<RenderPosition>(playerProvince);
@@ -92,6 +110,10 @@ int main() {
 		registry.emplace<RenderFill>(playerProvince);
 		registry.emplace<RenderLayer>(playerProvince, locationRenderLayer);
 		registry.emplace<HasOwner>(playerProvince, playerEntity);
+
+		const auto buildingEntity = registry.create();
+		registry.emplace<Building>(buildingEntity, "TownHall");
+		registry.emplace<HasOwner>(buildingEntity, playerProvince);
 	}
 
 	{
@@ -110,6 +132,7 @@ int main() {
 
 	{
 		const auto otherProvince = registry.create();
+		registry.emplace<Province>(otherProvince);
 		registry.emplace<WorldPosition>(otherProvince, -1.0f, 0.0f);
 		registry.emplace<ScreenPosition>(otherProvince);
 		registry.emplace<RenderPosition>(otherProvince);

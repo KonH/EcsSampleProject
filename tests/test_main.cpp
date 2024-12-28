@@ -4,6 +4,8 @@
 
 #include "Systems/Animation/MovementAnimationSystemTest.h"
 
+#include "Systems/Buildings/BuildingIncomeSystemTest.h"
+
 #include "Systems/Camera/CameraMovementIntentSystemTest.h"
 #include "Systems/Camera/CameraMovementSystemTest.h"
 #include "Systems/Camera/CameraZoomSystemTest.h"
