@@ -10,6 +10,7 @@
 #include "Components/CameraMovementIntent.h"
 #include "Components/CameraMovement.h"
 #include "Components/Click.h"
+#include "Components/Turn.h"
 
 namespace Sample::Systems::Utility {
 	using namespace Components;
@@ -28,5 +29,6 @@ namespace Sample::Systems::Utility {
 		CleanUp<CameraMovementIntent>();
 		CleanUp<CameraMovement>();
 		CleanUp<Click>();
+		CleanUp<Turn>();
 	}
 }
