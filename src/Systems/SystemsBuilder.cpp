@@ -3,21 +3,26 @@
 #include "Frontend/FrontendSystems.h"
 
 #include "Animation/MovementAnimationSystem.h"
+
 #include "Movement/WorldMovementSystem.h"
+
 #include "Presentation/HighlightCellByMousePositionSystem.h"
 #include "Presentation/WorldToScreenPositionSystem.h"
 #include "Presentation/WorldToScreenPositionSetSystem.h"
 #include "Presentation/ScreenToRenderPositionSystem.h"
 #include "Presentation/ScreenToRenderPositionSetSystem.h"
+#include "Presentation/HighlightSelectedSystem.h"
+
 #include "Utility/ActionProgressCleanUpSystem.h"
 #include "Utility/ActionProgressUpdateSystem.h"
 #include "Utility/DeltaTimeUpdateSystem.h"
 #include "Utility/EventCleanUpSystem.h"
+
 #include "Camera/CameraZoomSystem.h"
 #include "Camera/CameraMovementIntentSystem.h"
 #include "Camera/CameraMovementSystem.h"
+
 #include "Selection/MouseArmySelectionSystem.h"
-#include "Presentation/HighlightSelectedSystem.h"
 
 namespace Sample::Systems {
 	void SystemsBuilder::PreMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
