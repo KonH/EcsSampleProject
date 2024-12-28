@@ -8,6 +8,8 @@
 #include "Systems/Camera/CameraMovementSystemTest.h"
 #include "Systems/Camera/CameraZoomSystemTest.h"
 
+#include "Systems/Core/TurnAdvanceSystemTest.h"
+
 #include "Systems/Movement/ObstacleFilterSystemTest.h"
 #include "Systems/Movement/PlayerMovementSystemTest.h"
 #include "Systems/Movement/WorldMovementSystemTest.h"

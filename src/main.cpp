@@ -27,6 +27,8 @@
 #include "Components/ResourceCounter.h"
 #include "Components/HasOwner.h"
 #include "Components/ResourceHolder.h"
+#include "Components/BoxCollider.h"
+#include "Components/Button.h"
 
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
@@ -156,7 +158,9 @@ int main() {
 		registry.emplace<RenderLayer>(nextTurnButtonText, uiTextRenderLayer);
 
 		const auto nextTurnButton = registry.create();
-		// TODO: collider
+		registry.emplace<ScreenPosition>(nextTurnButton, screenWidth - width - offset, screenHeight - height - offset);
+		registry.emplace<BoxCollider>(nextTurnButton, Vector2Int { width, height });
+		registry.emplace<Button>(nextTurnButton);
 		registry.emplace<NextTurnButton>(nextTurnButton);
 	}
 

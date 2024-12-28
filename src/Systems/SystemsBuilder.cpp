@@ -7,6 +7,9 @@
 #include "Camera/CameraZoomSystem.h"
 #include "Camera/CameraMovementIntentSystem.h"
 #include "Camera/CameraMovementSystem.h"
+
+#include "Core/TurnAdvanceSystem.h"
+
 #include "Movement/WorldMovementSystem.h"
 
 #include "Presentation/HighlightCellByMousePositionSystem.h"
@@ -36,6 +39,7 @@ namespace Sample::Systems {
 		Add<Utility::ActionProgressUpdateSystem>(registry, systems);
 		Add<Selection::MouseArmySelectionSystem>(registry, systems);
 		Add<UI::ButtonClickSystem>(registry, systems);
+		Add<Core::TurnAdvanceSystem>(registry, systems);
 		Add<Presentation::HighlightSelectedSystem>(registry, systems);
 		Add<Movement::WorldMovementSystem>(registry, systems);
 		Add<Presentation::ResourceCounterUpdateSystem>(registry, systems);
