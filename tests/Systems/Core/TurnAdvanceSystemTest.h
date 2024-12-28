@@ -21,7 +21,7 @@ namespace Sample::Tests {
 		// Create an entity with ResourceHolder
 		const auto resourceHolderEntity = registry.create();
 		std::map<std::string, long> resources;
-		resources["Turns"] = 1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+		resources["Turns"] = Sample::ResourceConstants::GetResourceUnits(1);
 		registry.emplace<Sample::Components::ResourceHolder>(resourceHolderEntity, resources);
 
 		// Create and run the TurnAdvanceSystem
@@ -45,7 +45,7 @@ namespace Sample::Tests {
 		// Create an entity with ResourceHolder
 		const auto resourceHolderEntity = registry.create();
 		std::map<std::string, long> resources;
-		resources["Turns"] = static_cast<long>(1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
+		resources["Turns"] = 0;
 		registry.emplace<Sample::Components::ResourceHolder>(resourceHolderEntity, resources);
 
 		// Create and run the TurnAdvanceSystem
@@ -56,6 +56,6 @@ namespace Sample::Tests {
 		const auto &resourceHolder = registry.get<Sample::Components::ResourceHolder>(resourceHolderEntity);
 		auto it = resourceHolder.resources.find("Turns");
 		ASSERT_NE(it, resourceHolder.resources.end());
-		EXPECT_EQ(it->second, 1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
+		EXPECT_EQ(it->second, 0);
 	}
 }

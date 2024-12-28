@@ -21,7 +21,7 @@ namespace Sample::Tests {
 		auto &ctx = registry.ctx();
 		std::map<std::string, Sample::Configs::BuildingConfig> buildingConfigs;
 		buildingConfigs["TownHall"] = Sample::Configs::BuildingConfig{
-				"TownHall", {{"Coins", static_cast<int>(100 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT)}}};
+				"TownHall", {{"Coins", Sample::ResourceConstants::GetResourceUnits(100)}}};
 		ctx.emplace<Sample::Configs::BuildingConfigProvider>(buildingConfigs);
 
 		// Create a player entity with ResourceHolder
@@ -62,7 +62,7 @@ namespace Sample::Tests {
 		auto &ctx = registry.ctx();
 		std::map<std::string, Sample::Configs::BuildingConfig> buildingConfigs;
 		buildingConfigs["TownHall"] = Sample::Configs::BuildingConfig{
-				"TownHall", {{"Coins", static_cast<int>(100 * 100 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT)}}};
+				"TownHall", {{"Coins", Sample::ResourceConstants::GetResourceUnits(100)}}};
 		ctx.emplace<Sample::Configs::BuildingConfigProvider>(buildingConfigs);
 
 		// Create a player entity with ResourceHolder

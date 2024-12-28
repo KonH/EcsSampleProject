@@ -75,7 +75,7 @@ int main() {
 	buildingConfigs[buildingId] = BuildingConfig {
 		buildingId,
 		{
-			{ "Coins", static_cast<long>(0.5f * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT) }
+			{ "Coins", Sample::ResourceConstants::GetResourceUnits(0.5f) }
 		}
 	};
 	ctx.emplace<BuildingConfigProvider>(buildingConfigs);
@@ -91,13 +91,13 @@ int main() {
 
 	const auto globalEntity = registry.create();
 	std::map<std::string, long> globalResources;
-	globalResources[turnsResourceId] = static_cast<long>(1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
+	globalResources[turnsResourceId] = Sample::ResourceConstants::GetResourceUnits(1);
 	registry.emplace<ResourceHolder>(globalEntity, globalResources);
 
 	const auto playerEntity = registry.create();
 	registry.emplace<IsPlayer>(playerEntity);
 	std::map<std::string, long> playerResources;
-	playerResources[coinsResourceId] = 10000;
+	playerResources[coinsResourceId] = Sample::ResourceConstants::GetResourceUnits(10);
 	registry.emplace<ResourceHolder>(playerEntity, playerResources);
 
 	{

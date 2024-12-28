@@ -21,7 +21,7 @@ namespace Sample::Systems::Core {
 			for (auto&& [resourceEntity, resourceHolder]: resourceHolderView.each()) {
 				auto it = resourceHolder.resources.find(Sample::ResourceConstants::TURNS_RESOURCE_ID);
 				if (it != resourceHolder.resources.end()) {
-					it->second += static_cast<long>(1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
+					it->second += Sample::ResourceConstants::GetResourceUnits(1);
 					Sample::Logging::Logger::LogInfo("[TurnAdvanceSystem] Turn advanced to: {}", it->second);
 					_registry.emplace<Turn>(_registry.create());
 				}
