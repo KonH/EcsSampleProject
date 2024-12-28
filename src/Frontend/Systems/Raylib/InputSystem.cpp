@@ -10,7 +10,11 @@
 #include "Components/MousePosition.h"
 #include "Components/MouseMove.h"
 
+#include "Logging/Logger.h"
+
 namespace Sample::Systems::Raylib {
+	using namespace Logging;
+
 	InputSystem::InputSystem(entt::registry &registry) : _registry(registry) {
 		_registry.ctx().emplace<Components::MousePosition>();
 	}
@@ -45,6 +49,7 @@ namespace Sample::Systems::Raylib {
 			_registry.emplace<Components::MouseMove>(_registry.create(), mouseDeltaVec);
 		}
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			Logger::LogInfo("[InputSystem] Left mouse button click at {}x{}", mousePosition.x, mousePosition.y);
 			RaiseControlPress(Types::ControlType::LeftMouseButton);
 		}
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
