@@ -61,7 +61,10 @@ namespace Sample::Tests {
 
 		auto resourceCounterUpdateSystem = Systems::Presentation::ResourceCounterUpdateSystem{registry};
 
-		EXPECT_DEATH(resourceCounterUpdateSystem.Update(), "Resource owner entity is invalid");
+		resourceCounterUpdateSystem.Update();
+
+		const auto &text = registry.get<Components::Text>(resourceCounterEntity);
+		EXPECT_EQ(text.text, "");
 	}
 
 	TEST(EcsSampleResourceCounterUpdateSystemTest, InvalidResourceId) {
@@ -77,6 +80,9 @@ namespace Sample::Tests {
 
 		auto resourceCounterUpdateSystem = Systems::Presentation::ResourceCounterUpdateSystem{registry};
 
-		EXPECT_DEATH(resourceCounterUpdateSystem.Update(), "Resource ID is invalid");
+		resourceCounterUpdateSystem.Update();
+
+		const auto &text = registry.get<Components::Text>(resourceCounterEntity);
+		EXPECT_EQ(text.text, "");
 	}
 }
