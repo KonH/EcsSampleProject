@@ -5,6 +5,8 @@
 #include "Systems/Animation/MovementAnimationSystemTest.h"
 
 #include "Systems/Camera/CameraMovementIntentSystemTest.h"
+#include "Systems/Camera/CameraMovementSystemTest.h"
+#include "Systems/Camera/CameraZoomSystemTest.h"
 
 #include "Systems/Movement/ObstacleFilterSystemTest.h"
 #include "Systems/Movement/PlayerMovementSystemTest.h"
@@ -15,6 +17,8 @@
 #include "Systems/Presentation/WorldToScreenPositionSetSystemTest.h"
 #include "Systems/Presentation/WorldToScreenPositionSystemTest.h"
 #include "Systems/Presentation/ResourceCounterUpdateSystemTest.h"
+#include "Systems/Presentation/HighlightSelectedSystemTest.h"
+#include "Systems/Presentation/HighlightCellByMousePositionSystemTest.h"
 
 #include "Systems/Selection/MouseArmySelectionSystemTest.h"
 
