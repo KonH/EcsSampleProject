@@ -2,10 +2,12 @@
 
 #include <string>
 
+#include "Types/Color.h"
+
 namespace Sample::Components {
 	struct Text {
 		std::string fontName;
-		std::string text;
 		int size;
+		std::string text;
 	};
 }

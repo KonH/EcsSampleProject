@@ -3,5 +3,5 @@
 #include "Types/Color.h"
 
 namespace Sample::Components {
-	struct RenderLine {};
+	struct RenderFill {};
 }

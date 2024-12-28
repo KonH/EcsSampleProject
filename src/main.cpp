@@ -4,6 +4,7 @@
 #include "Types/Vector2Float.h"
 
 #include "Components/RenderColor.h"
+#include "Components/RenderFill.h"
 #include "Components/RenderLine.h"
 #include "Components/RenderPosition.h"
 #include "Components/RenderScale.h"
@@ -62,6 +63,7 @@ int main() {
 		registry.emplace<ScreenPosition>(playerProvince);
 		registry.emplace<RenderPosition>(playerProvince);
 		registry.emplace<RenderColor>(playerProvince, Color { 0, 0, 255, 255 });
+		registry.emplace<RenderFill>(playerProvince);
 		registry.emplace<RenderLayer>(playerProvince, locationRenderLayer);
 		registry.emplace<HasOwner>(playerProvince, player);
 	}
@@ -72,6 +74,7 @@ int main() {
 		registry.emplace<ScreenPosition>(playerArmy);
 		registry.emplace<RenderPosition>(playerArmy);
 		registry.emplace<RenderColor>(playerArmy, Color { 0, 155, 0, 255 });
+		registry.emplace<RenderFill>(playerArmy);
 		registry.emplace<RenderScale>(playerArmy, 0.5f);
 		registry.emplace<RenderLayer>(playerArmy, unitRenderLayer);
 		registry.emplace<Army>(playerArmy);
@@ -85,6 +88,7 @@ int main() {
 		registry.emplace<ScreenPosition>(otherProvince);
 		registry.emplace<RenderPosition>(otherProvince);
 		registry.emplace<RenderColor>(otherProvince, Color { 255, 0, 0, 255 });
+		registry.emplace<RenderFill>(otherProvince);
 		registry.emplace<RenderLayer>(otherProvince, locationRenderLayer);
 	}
 
@@ -94,6 +98,7 @@ int main() {
 		registry.emplace<ScreenPosition>(cellHighlighter);
 		registry.emplace<RenderPosition>(cellHighlighter);
 		registry.emplace<RenderColor>(cellHighlighter, Color { 125, 125, 125, 125 });
+		registry.emplace<RenderFill>(cellHighlighter);
 		registry.emplace<RenderScale>(cellHighlighter, 0.75f);
 		registry.emplace<RenderLayer>(cellHighlighter, highlightRenderLayer);
 		registry.emplace<IsHighlightCell>(cellHighlighter);

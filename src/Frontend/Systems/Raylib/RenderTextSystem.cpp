@@ -10,15 +10,13 @@
 #include "Utils.h"
 
 namespace Sample::Systems::Raylib {
+	using namespace Components;
+
 	RenderTextSystem::RenderTextSystem(entt::registry &registry) : _registry(registry) {}
 
 	void RenderTextSystem::Update() {
-		const auto& view = _registry.view<Components::RenderPosition, Components::RenderColor, Components::Text>();
-		for (const auto entity : view) {
-			const auto& renderPosition = view.get<Components::RenderPosition>(entity);
-			const auto& renderColor = view.get<Components::RenderColor>(entity);
-			const auto& text = view.get<Components::Text>(entity);
-
+		const auto& view = _registry.view<RenderPosition, Text, RenderColor>();
+		for (auto&& [entity, renderPosition, text, renderColor] : view.each()) {
 			if (const auto font = TryLoadFont(text.fontName); font) {
 				const auto pos = Vector2 { static_cast<float>(renderPosition.position.x), static_cast<float>(renderPosition.position.y) };
 				const auto color = Utils::ConvertColor(renderColor.color);

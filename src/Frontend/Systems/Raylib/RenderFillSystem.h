@@ -5,9 +5,9 @@
 #include "Systems/System.h"
 
 namespace Sample::Systems::Raylib {
-	class RenderColorSystem final : public System {
+	class RenderFillSystem final : public System {
 	public:
-		explicit RenderColorSystem(entt::registry& registry);
+		explicit RenderFillSystem(entt::registry &registry);
 
 		void Update() override;
 
