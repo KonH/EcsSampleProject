@@ -17,7 +17,7 @@ namespace Sample::Tests {
 
 		const auto player = registry.create();
 		std::map<std::string, long> resources;
-		resources["Coins"] = 100 * Constants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+		resources["Coins"] = static_cast<long>(100 * Constants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
 		registry.emplace<Components::ResourceHolder>(player, resources);
 
 		const auto resourceCounterEntity = registry.create();
@@ -37,7 +37,7 @@ namespace Sample::Tests {
 
 		const auto player = registry.create();
 		std::map<std::string, long> resources;
-		resources["Coins"] = 123.45 * Constants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+		resources["Coins"] = static_cast<long>(123.45 * Constants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
 		registry.emplace<Components::ResourceHolder>(player, resources);
 
 		const auto resourceCounterEntity = registry.create();

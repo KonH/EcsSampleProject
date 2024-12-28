@@ -16,7 +16,6 @@ namespace Sample::Systems::Raylib {
 
 	void RenderLineSystem::Update() {
 		// TODO: sorting layers
-		const auto& renderSettings = _registry.ctx().get<Components::RenderSettings>();
 		const auto& view = _registry.view<RenderPositionSet, RenderColor, RenderLine>();
 		for (auto&& [entity, renderPosition, renderColor] : view.each()) {
 			const auto& positions = renderPosition.positions;

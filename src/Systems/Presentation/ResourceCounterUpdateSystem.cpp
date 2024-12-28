@@ -35,7 +35,7 @@ namespace Sample::Systems::Presentation {
 
 				auto resourceAmount = it->second;
 
-				double displayAmount = resourceAmount / Constants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+				double displayAmount = static_cast<double>(resourceAmount) / Constants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
 
 				std::ostringstream oss;
 				oss << std::fixed << std::setprecision(3) << displayAmount;
