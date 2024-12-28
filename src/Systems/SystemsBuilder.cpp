@@ -4,6 +4,9 @@
 
 #include "Animation/MovementAnimationSystem.h"
 
+#include "Camera/CameraZoomSystem.h"
+#include "Camera/CameraMovementIntentSystem.h"
+#include "Camera/CameraMovementSystem.h"
 #include "Movement/WorldMovementSystem.h"
 
 #include "Presentation/HighlightCellByMousePositionSystem.h"
@@ -14,16 +17,15 @@
 #include "Presentation/HighlightSelectedSystem.h"
 #include "Presentation/ResourceCounterUpdateSystem.h"
 
+#include "Selection/MouseArmySelectionSystem.h"
+
+#include "UI/ButtonClickSystem.h"
+
 #include "Utility/ActionProgressCleanUpSystem.h"
 #include "Utility/ActionProgressUpdateSystem.h"
 #include "Utility/DeltaTimeUpdateSystem.h"
 #include "Utility/EventCleanUpSystem.h"
 
-#include "Camera/CameraZoomSystem.h"
-#include "Camera/CameraMovementIntentSystem.h"
-#include "Camera/CameraMovementSystem.h"
-
-#include "Selection/MouseArmySelectionSystem.h"
 
 namespace Sample::Systems {
 	void SystemsBuilder::PreMainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
@@ -33,6 +35,7 @@ namespace Sample::Systems {
 	void SystemsBuilder::MainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 		Add<Utility::ActionProgressUpdateSystem>(registry, systems);
 		Add<Selection::MouseArmySelectionSystem>(registry, systems);
+		Add<UI::ButtonClickSystem>(registry, systems);
 		Add<Presentation::HighlightSelectedSystem>(registry, systems);
 		Add<Movement::WorldMovementSystem>(registry, systems);
 		Add<Presentation::ResourceCounterUpdateSystem>(registry, systems);

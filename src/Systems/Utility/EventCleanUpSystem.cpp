@@ -9,20 +9,24 @@
 #include "Components/WorldMovementIntent.h"
 #include "Components/CameraMovementIntent.h"
 #include "Components/CameraMovement.h"
+#include "Components/Click.h"
 
 namespace Sample::Systems::Utility {
+	using namespace Components;
+
 	EventCleanUpSystem::EventCleanUpSystem(entt::registry &registry) : _registry(registry) {}
 
 	void EventCleanUpSystem::Update() {
 		// TODO: code generation for event clean up
-		CleanUp<Components::ControlPress>();
-		CleanUp<Components::ControlDown>();
-		CleanUp<Components::MouseScroll>();
-		CleanUp<Components::MouseMove>();
-		CleanUp<Components::ActionStart>();
-		CleanUp<Components::ActionFinish>();
-		CleanUp<Components::WorldMovementIntent>();
-		CleanUp<Components::CameraMovementIntent>();
-		CleanUp<Components::CameraMovement>();
+		CleanUp<ControlPress>();
+		CleanUp<ControlDown>();
+		CleanUp<MouseScroll>();
+		CleanUp<MouseMove>();
+		CleanUp<ActionStart>();
+		CleanUp<ActionFinish>();
+		CleanUp<WorldMovementIntent>();
+		CleanUp<CameraMovementIntent>();
+		CleanUp<CameraMovement>();
+		CleanUp<Click>();
 	}
 }

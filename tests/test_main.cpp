@@ -22,6 +22,8 @@
 
 #include "Systems/Selection/MouseArmySelectionSystemTest.h"
 
+#include "Systems/UI/ButtonClickSystemTest.h"
+
 #include "Systems/Utility/ActionProgressCleanUpSystemTest.h"
 #include "Systems/Utility/ActionProgressUpdateSystemTest.h"
 #include "Systems/Utility/DeltaTimeUpdateSystemTest.h"
