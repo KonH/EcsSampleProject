@@ -14,6 +14,7 @@
 #include "Systems/Presentation/ScreenToRenderPositionSystemTest.h"
 #include "Systems/Presentation/WorldToScreenPositionSetSystemTest.h"
 #include "Systems/Presentation/WorldToScreenPositionSystemTest.h"
+#include "Systems/Presentation/ResourceCounterUpdateSystemTest.h"
 
 #include "Systems/Selection/MouseArmySelectionSystemTest.h"
 

@@ -12,6 +12,7 @@
 #include "Presentation/ScreenToRenderPositionSystem.h"
 #include "Presentation/ScreenToRenderPositionSetSystem.h"
 #include "Presentation/HighlightSelectedSystem.h"
+#include "Presentation/ResourceCounterUpdateSystem.h"
 
 #include "Utility/ActionProgressCleanUpSystem.h"
 #include "Utility/ActionProgressUpdateSystem.h"
@@ -34,6 +35,7 @@ namespace Sample::Systems {
 		Add<Selection::MouseArmySelectionSystem>(registry, systems);
 		Add<Presentation::HighlightSelectedSystem>(registry, systems);
 		Add<Movement::WorldMovementSystem>(registry, systems);
+		Add<Presentation::ResourceCounterUpdateSystem>(registry, systems);
 		Add<Presentation::HighlightCellByMousePositionSystem>(registry, systems);
 		Add<Presentation::WorldToScreenPositionSystem>(registry, systems);
 		Add<Presentation::WorldToScreenPositionSetSystem>(registry, systems);

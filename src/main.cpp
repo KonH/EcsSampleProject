@@ -6,6 +6,7 @@
 #include "Components/RenderColor.h"
 #include "Components/RenderFill.h"
 #include "Components/RenderLine.h"
+#include "Components/Text.h"
 #include "Components/RenderPosition.h"
 #include "Components/RenderScale.h"
 #include "Components/RenderLayer.h"
@@ -20,6 +21,9 @@
 #include "Components/Army.h"
 #include "Components/IsPlayer.h"
 #include "Components/HighlightColor.h"
+#include "Components/ResourceCounter.h"
+#include "Components/HasOwner.h"
+#include "Components/ResourceHolder.h"
 
 #include "Execution/MainLoopRunner.h"
 #include "Frontend/FrontendSystems.h"
@@ -27,6 +31,7 @@
 
 #include "Systems/SystemsBuilder.h"
 
+// TODO - add UI toolset
 // TODO - add serialization
 
 int main() {
@@ -56,6 +61,18 @@ int main() {
 	const auto locationRenderLayer = 0;
 	const auto unitRenderLayer = 1;
 	const auto highlightRenderLayer = 2;
+	const auto uiAssetRenderLayer = 10;
+	const auto uiTextRenderLayer = 11;
+
+	const auto turnsResourceId = "Turns";
+	const auto coinsResourceId = "Coins";
+
+	const auto player = registry.create();
+	registry.emplace<IsPlayer>(player);
+	std::map<std::string, long> resources;
+	resources[turnsResourceId] = 0;
+	resources[coinsResourceId] = 100;
+	registry.emplace<ResourceHolder>(player, resources);
 
 	{
 		const auto playerProvince = registry.create();
@@ -103,6 +120,25 @@ int main() {
 		registry.emplace<RenderLayer>(cellHighlighter, highlightRenderLayer);
 		registry.emplace<IsHighlightCell>(cellHighlighter);
 	}
+
+	{
+        const auto turnsCounterText = registry.create();
+        registry.emplace<ScreenPosition>(turnsCounterText, screenWidth - 120, 20);
+        registry.emplace<RenderPosition>(turnsCounterText);
+        registry.emplace<Text>(turnsCounterText, "Roboto-Black.ttf", 25, "Turns: 0");
+		registry.emplace<RenderColor>(turnsCounterText, Color { 0, 125, 0, 255 });
+        registry.emplace<RenderLayer>(turnsCounterText, uiTextRenderLayer);
+		registry.emplace<ResourceCounter>(turnsCounterText, turnsResourceId, player);
+	}
+	
+	{
+		const auto resourceCounterText = registry.create();
+		registry.emplace<ScreenPosition>(resourceCounterText, 20, 20);
+		registry.emplace<RenderPosition>(resourceCounterText);
+		registry.emplace<Text>(resourceCounterText, "Roboto-Black.ttf", 25, "Coins: 0");
+		registry.emplace<RenderColor>(resourceCounterText, Color { 0, 125, 0, 255 });
+		registry.emplace<RenderLayer>(resourceCounterText, uiTextRenderLayer);
+		registry.emplace<ResourceCounter>(resourceCounterText, coinsResourceId, player);
 	}
 
 	Sample::Systems::SystemsBuilder::PreMainInitialize(registry, systems);
