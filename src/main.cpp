@@ -77,7 +77,7 @@ int main() {
 	buildingConfigs[buildingId] = BuildingConfig {
 		buildingId,
 		{
-			{ "Coins", Sample::ResourceConstants::GetResourceUnits(0.5f) }
+			{ "Coins", Sample::ResourceConstants::GetResourceUnits(0.5) }
 		}
 	};
 	ctx.emplace<BuildingConfigProvider>(buildingConfigs);

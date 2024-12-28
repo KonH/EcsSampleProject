@@ -54,6 +54,8 @@ FetchContent_MakeAvailable(fmt)
 
 # Source files
 file(GLOB_RECURSE SRC_FILES
+        ${CMAKE_SOURCE_DIR}/src/Common/*.h
+        ${CMAKE_SOURCE_DIR}/src/Common/*.cpp
         ${CMAKE_SOURCE_DIR}/src/Components/*.h
         ${CMAKE_SOURCE_DIR}/src/Configs/*.h
         ${CMAKE_SOURCE_DIR}/src/Configs/*.cpp
