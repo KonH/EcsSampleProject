@@ -1,5 +1,7 @@
 #include <entt/entt.hpp>
 
+#include "Common/ResourceConstants.h"
+
 #include "Types/Color.h"
 #include "Types/Vector2Float.h"
 
@@ -65,12 +67,12 @@ int main() {
 	const auto uiAssetRenderLayer = 10;
 	const auto uiTextRenderLayer = 11;
 
-	const auto turnsResourceId = "Turns";
+	const auto turnsResourceId = Sample::ResourceConstants::TURNS_RESOURCE_ID;
 	const auto coinsResourceId = "Coins";
 
 	const auto globalEntity = registry.create();
 	std::map<std::string, long> globalResources;
-	globalResources[turnsResourceId] = 1;
+	globalResources[turnsResourceId] = 1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
 	registry.emplace<ResourceHolder>(globalEntity, globalResources);
 
 	const auto playerEntity = registry.create();
