@@ -45,7 +45,7 @@ namespace Sample::Tests {
 		// Create an entity with ResourceHolder
 		const auto resourceHolderEntity = registry.create();
 		std::map<std::string, long> resources;
-		resources["Turns"] = 1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+		resources["Turns"] = static_cast<long>(1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
 		registry.emplace<Sample::Components::ResourceHolder>(resourceHolderEntity, resources);
 
 		// Create and run the TurnAdvanceSystem

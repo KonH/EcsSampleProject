@@ -17,11 +17,11 @@ namespace Sample::Systems::Core {
 	void TurnAdvanceSystem::Update() {
 		auto clickView = _registry.view<Click, NextTurnButton>();
 		auto resourceHolderView = _registry.view<ResourceHolder>();
-		for (auto _: clickView) {
+		for ([[maybe_unused]] auto _: clickView) {
 			for (auto&& [resourceEntity, resourceHolder]: resourceHolderView.each()) {
 				auto it = resourceHolder.resources.find(Sample::ResourceConstants::TURNS_RESOURCE_ID);
 				if (it != resourceHolder.resources.end()) {
-					it->second += 1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+					it->second += static_cast<long>(1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
 					Sample::Logging::Logger::LogInfo("[TurnAdvanceSystem] Turn advanced to: {}", it->second);
 					_registry.emplace<Turn>(_registry.create());
 				}

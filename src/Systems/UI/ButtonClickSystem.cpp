@@ -27,10 +27,10 @@ namespace Sample::Systems::UI {
 				continue;
 			}
 			for (auto&& [entity, position, collider]: buttonView.each()) {
-				if (mousePosition.x >= position.position.x &&
-					mousePosition.x <= position.position.x + collider.size.x &&
-					mousePosition.y >= position.position.y &&
-					mousePosition.y <= position.position.y + collider.size.y) {
+				if (mousePosition.x >= static_cast<float>(position.position.x) &&
+					mousePosition.x <= static_cast<float>(position.position.x + collider.size.x) &&
+					mousePosition.y >= static_cast<float>(position.position.y) &&
+					mousePosition.y <= static_cast<float>(position.position.y + collider.size.y)) {
 					Sample::Logging::Logger::LogInfo(
 						"[ButtonClickSystem] Button clicked at position: {}x{}",
 						mousePosition.x, mousePosition.y);

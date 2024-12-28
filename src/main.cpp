@@ -91,7 +91,7 @@ int main() {
 
 	const auto globalEntity = registry.create();
 	std::map<std::string, long> globalResources;
-	globalResources[turnsResourceId] = 1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT;
+	globalResources[turnsResourceId] = static_cast<long>(1 * Sample::ResourceConstants::RESOURCE_UNITS_PER_DISPLAY_UNIT);
 	registry.emplace<ResourceHolder>(globalEntity, globalResources);
 
 	const auto playerEntity = registry.create();
