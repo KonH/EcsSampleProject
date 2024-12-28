@@ -21,6 +21,7 @@
 #include "Components/Army.h"
 #include "Components/IsPlayer.h"
 #include "Components/HighlightColor.h"
+#include "Components/NextTurnButton.h"
 #include "Components/ResourceCounter.h"
 #include "Components/HasOwner.h"
 #include "Components/ResourceHolder.h"
@@ -119,6 +120,38 @@ int main() {
 		registry.emplace<RenderScale>(cellHighlighter, 0.75f);
 		registry.emplace<RenderLayer>(cellHighlighter, highlightRenderLayer);
 		registry.emplace<IsHighlightCell>(cellHighlighter);
+	}
+
+	{
+		const auto offset = 20;
+		const auto width = 120;
+		const auto height = 60;
+
+		const auto nextTurnButtonBorder = registry.create();
+		std::vector<Vector2Int> positions;
+		positions.push_back(Vector2Int { screenWidth - width - offset, screenHeight - height - offset });
+		positions.push_back(Vector2Int { screenWidth - offset, screenHeight - height - offset });
+		positions.push_back(Vector2Int { screenWidth - offset, screenHeight - offset });
+		positions.push_back(Vector2Int { screenWidth - width - offset, screenHeight - offset });
+		positions.push_back(Vector2Int { screenWidth - width - offset, screenHeight - height - offset });
+		registry.emplace<ScreenPositionSet>(nextTurnButtonBorder, positions);
+		registry.emplace<RenderPositionSet>(nextTurnButtonBorder);
+		registry.emplace<RenderLine>(nextTurnButtonBorder);
+		registry.emplace<RenderColor>(nextTurnButtonBorder, Color { 0, 125, 0, 255 });
+		registry.emplace<RenderLayer>(nextTurnButtonBorder, uiAssetRenderLayer);
+
+		const auto textOffset = 10;
+
+		const auto nextTurnButtonText = registry.create();
+		registry.emplace<ScreenPosition>(nextTurnButtonText, screenWidth - width - offset + textOffset, screenHeight - height - offset + textOffset);
+		registry.emplace<RenderPosition>(nextTurnButtonText);
+		registry.emplace<Text>(nextTurnButtonText, "Roboto-Black.ttf", 22, "Next Turn");
+		registry.emplace<RenderColor>(nextTurnButtonText, Color { 0, 125, 0, 255 });
+		registry.emplace<RenderLayer>(nextTurnButtonText, uiTextRenderLayer);
+
+		const auto nextTurnButton = registry.create();
+		// TODO: collider
+		registry.emplace<NextTurnButton>(nextTurnButton);
 	}
 
 	{
