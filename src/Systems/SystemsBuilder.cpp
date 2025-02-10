@@ -14,6 +14,7 @@
 #include "Core/TurnAdvanceSystem.h"
 
 #include "Movement/WorldMovementSystem.h"
+#include "Movement/MouseArmyMovementSystem.h"
 
 #include "Presentation/HighlightCellByMousePositionSystem.h"
 #include "Presentation/WorldToScreenPositionSystem.h"
@@ -40,6 +41,7 @@ namespace Sample::Systems {
 
 	void SystemsBuilder::MainInitialize(entt::registry& registry, std::vector<std::unique_ptr<Systems::System>>& systems) {
 		Add<Utility::ActionProgressUpdateSystem>(registry, systems);
+		Add<Movement::MouseArmyMovementSystem>(registry, systems);
 		Add<Selection::MouseArmySelectionSystem>(registry, systems);
 		Add<UI::ButtonClickSystem>(registry, systems);
 		Add<Core::TurnAdvanceSystem>(registry, systems);

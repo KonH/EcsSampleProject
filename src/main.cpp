@@ -119,6 +119,22 @@ int main() {
 	}
 
 	{
+		const auto otherPlayerProvince = registry.create();
+		registry.emplace<Province>(otherPlayerProvince);
+		registry.emplace<WorldPosition>(otherPlayerProvince, 1.0f, 0.0f);
+		registry.emplace<ScreenPosition>(otherPlayerProvince);
+		registry.emplace<RenderPosition>(otherPlayerProvince);
+		registry.emplace<RenderColor>(otherPlayerProvince, Color { 0, 0, 255, 255 });
+		registry.emplace<RenderFill>(otherPlayerProvince);
+		registry.emplace<RenderLayer>(otherPlayerProvince, locationRenderLayer);
+		registry.emplace<HasOwner>(otherPlayerProvince, playerEntity);
+
+		const auto buildingEntity = registry.create();
+		registry.emplace<Building>(buildingEntity, "TownHall");
+		registry.emplace<HasOwner>(buildingEntity, otherPlayerProvince);
+	}
+
+	{
 		const auto playerArmy = registry.create();
 		registry.emplace<WorldPosition>(playerArmy, 0.0f, 0.0f);
 		registry.emplace<ScreenPosition>(playerArmy);
@@ -129,6 +145,7 @@ int main() {
 		registry.emplace<RenderLayer>(playerArmy, unitRenderLayer);
 		registry.emplace<Army>(playerArmy);
 		registry.emplace<IsPlayer>(playerArmy);
+		registry.emplace<HasOwner>(playerArmy, playerEntity);
 		registry.emplace<HighlightColor>(playerArmy, Color { 0, 255, 0, 255 },  Color { 0, 155, 0, 255 });
 	}
 
